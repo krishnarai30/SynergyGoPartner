@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">Synergy Go Partner</string>
+
+    <string-array name="resstatus">
+        <item>Self Owned</item>
+        <item>Owned By Relatives</item>
+        <item>Rented</item>
+        <item>Paying Guest</item>
+        <item>Owned by Parents</item>
+        <item>Owned by Friends</item>
+        <item>Company Accommodation</item>
+    </string-array>
+
+    <string-array name="vehicle">
+        <item>Two Wheeler</item>
+        <item>Car</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="locality">
+        <item>Posh Locality</item>
+        <item>Village Area</item>
+        <item>Lodging</item>
+        <item>Upper Middle Class</item>
+        <item>Lower Middle Class</item>
+        <item>Slum Locality</item>
+        <item>Middle Class</item>
+        <item>Residential Complex</item>
+        <item>Others</item>
+    </string-array>
 </resources>
