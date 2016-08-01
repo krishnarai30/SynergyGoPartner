@@ -52,7 +52,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="NULL"
-                        android:id="@+id/textView11" />
+                        android:id="@+id/agentv" />
                 </TableRow>
 
                 <TableRow
@@ -88,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="NULL"
-                        android:id="@+id/textView15" />
+                        android:id="@+id/filetv" />
                 </TableRow>
 
                 <TableRow
@@ -124,7 +124,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="NULL"
-                        android:id="@+id/textView19" />
+                        android:id="@+id/apptv" />
                 </TableRow>
 
                 <TableRow
@@ -160,7 +160,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="NULL"
-                        android:id="@+id/textView23" />
+                        android:id="@+id/conptv" />
                 </TableRow>
 
                 <TableRow
@@ -196,7 +196,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="NULL"
-                        android:id="@+id/textView27" />
+                        android:id="@+id/constv" />
                 </TableRow>
 
                 <TableRow
@@ -268,7 +268,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="NULL"
-                        android:id="@+id/textView35" />
+                        android:id="@+id/landtv" />
                 </TableRow>
 
                 <TableRow
@@ -286,6 +286,42 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:id="@+id/textView37" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Address Type"
+                        android:id="@+id/textView11" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="NULL"
+                        android:id="@+id/addtyptv" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:id="@+id/textView19" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:id="@+id/textView23" />
                 </TableRow>
 
                 <TableRow

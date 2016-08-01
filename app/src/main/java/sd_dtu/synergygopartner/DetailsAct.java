@@ -14,19 +14,47 @@ import com.google.firebase.database.ValueEventListener;
 
 public class DetailsAct extends AppCompatActivity {
     DatabaseReference mDatabasechecked;
-    TextView addtv;
+    String addstr,agentidstr,filestr,applicantnamestr,contactpstr,contactsstr,landmarkstr,addtypestr;
+    TextView addtv,agenttv,filetv,appnametv,cantactptv,contactstv,landmarktv,addtyptv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         addtv=(TextView)findViewById(R.id.addresstxtv);
-        mDatabasechecked = FirebaseDatabase.getInstance().getReference();
+        agenttv=(TextView)findViewById(R.id.agentv);
+        filetv=(TextView)findViewById(R.id.filetv);
+        appnametv=(TextView)findViewById(R.id.apptv);
+        cantactptv=(TextView)findViewById(R.id.conptv);
+        contactstv=(TextView)findViewById(R.id.constv);
+        landmarktv=(TextView)findViewById(R.id.landtv);
+        addtyptv=(TextView)findViewById(R.id.addtyptv);
 
-            mDatabasechecked.child("file").child("1").child("Address").addValueEventListener(new ValueEventListener() {
+        mDatabasechecked = FirebaseDatabase.getInstance().getReference();
+        mDatabasechecked.child("file").child("1").child("Applicant's name").setValue("nikhil");
+
+            mDatabasechecked.child("file").child("1").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    String test=dataSnapshot.getValue(String.class);
-                    addtv.setText(test);
+
+                    addstr=dataSnapshot.child("Address").getValue(String.class);
+                    agentidstr=dataSnapshot.child("Agent ID").getValue(String.class);
+                    filestr=dataSnapshot.child("File").getValue(String.class);
+                    applicantnamestr=dataSnapshot.child("Applicant's name").getValue(String.class);
+                    contactpstr=dataSnapshot.child("Contact Primary").getValue(String.class);
+                    contactsstr=dataSnapshot.child("Contact Secondary").getValue(String.class);
+                    landmarkstr=dataSnapshot.child("Landmark").getValue(String.class);
+                    addtypestr=dataSnapshot.child("Address Type").getValue(String.class);
+
+
+                    addtv.setText(addstr);
+                    agenttv.setText(agentidstr);
+                    addtyptv.setText(addtypestr);
+                    filetv.setText(filestr);
+                    landmarktv.setText(landmarkstr);
+                    contactstv.setText(contactsstr);
+                    cantactptv.setText(contactpstr);
+                    appnametv.setText(applicantnamestr);
+
                 }
 
                 @Override
