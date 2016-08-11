@@ -183,7 +183,7 @@ public class SubmitionAct extends Activity implements LocationListener {
 
             FirebaseStorage storage = FirebaseStorage.getInstance();
 
-            StorageReference storageRef = storage.getReferenceFromUrl("synergy-go.appspot.com");
+            StorageReference storageRef = storage.getReferenceFromUrl("gs://synergy-go.appspot.com");
 
              StorageReference photoRef = storageRef.child(selectedImage.getLastPathSegment());
             photoRef.putFile(selectedImage);

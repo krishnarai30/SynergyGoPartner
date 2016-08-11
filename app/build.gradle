@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion '24.0.1'
+    compileSdkVersion 23
+    buildToolsVersion '23.0.1'
 
     defaultConfig {
         applicationId "sd_dtu.synergygopartner"
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -16,6 +16,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            multiDexEnabled true;
         }
     }
 }
@@ -23,12 +24,16 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.1.1'
-    compile 'com.google.android.gms:play-services:9.2.1'
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.google.android.gms:play-services:9.4.0'
     compile 'com.google.firebase:firebase-core:9.2.1'
     compile 'com.google.firebase:firebase-database:9.2.1'
     compile 'com.google.firebase:firebase-auth:9.2.1'
-
+    compile 'com.google.firebase:firebase-crash:9.4.0'
 }
+
 apply plugin: 'com.google.gms.google-services'
+
+
+
 
