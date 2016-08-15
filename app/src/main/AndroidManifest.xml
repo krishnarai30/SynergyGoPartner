@@ -22,9 +22,7 @@
         <activity android:name=".AssignmentChooseAct" />
         <activity android:name=".LoginAct" />
         <activity android:name=".DetailsAct" />
-        <activity android:name=".ServiceOffice1" />
-        <activity android:name=".ServiceOffice2" />
-        <activity android:name=".ServiceRes1" />
+       
         <activity android:name=".SerRes2Act" />
         <activity android:name=".LocationPhoto" />
         <activity android:name=".SerRes1Act" />
