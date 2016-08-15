@@ -22,8 +22,8 @@ import android.widget.Toast;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-
 public class SubmitionAct extends Activity implements LocationListener {
+
     protected LocationManager locationManager;
     private double latitude = 0;
     private double longitude = 0;
@@ -46,8 +46,7 @@ public class SubmitionAct extends Activity implements LocationListener {
         nbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(SubmitionAct.this,new1.class);
-                startActivity(intent);
+
             }
         });
 
@@ -165,12 +164,13 @@ public class SubmitionAct extends Activity implements LocationListener {
     }
 
 
-     public void onc(View view) {
+    public void onc(View view) {
 
-         Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
-         intent.setType("*/*");
-         startActivityForResult(intent,1);
-     }
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT , null);
+        intent.setType("image/*");
+        startActivityForResult(intent, 1);
+    }
+
 
 
 
@@ -178,20 +178,25 @@ public class SubmitionAct extends Activity implements LocationListener {
         super.onActivityResult(requestCode, resultCode, data);
 
 
-        if(requestCode == 1 && resultCode == RESULT_OK && data != null){
+        if(requestCode == 1 && resultCode == RESULT_OK && data != null ){
+
             Uri selectedImage = data.getData();
 
             FirebaseStorage storage = FirebaseStorage.getInstance();
 
             StorageReference storageRef = storage.getReferenceFromUrl("gs://synergy-go.appspot.com");
 
-             StorageReference photoRef = storageRef.child(selectedImage.getLastPathSegment());
+            StorageReference photoRef = storageRef.child(selectedImage.getLastPathSegment());
             photoRef.putFile(selectedImage);
 
             Toast.makeText(this, "image uploaded", Toast.LENGTH_SHORT).show();
-        }
 
+        }
     }
 
 
+
 }
+
+
+

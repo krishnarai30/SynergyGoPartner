@@ -20,13 +20,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AssignmentChooseAct"></activity>
 
 
+        <activity android:name=".AssignmentChooseAct"/>
         <activity android:name=".LoginAct" />
         <activity android:name=".DetailsAct" />
         <activity android:name=".SubmitionAct" />
-        <activity android:name=".OfficeSubmit" />
         <activity android:name=".ResSub2"></activity>
         <activity android:name=".new1"></activity>
 
