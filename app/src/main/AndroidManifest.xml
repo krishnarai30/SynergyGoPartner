@@ -25,10 +25,11 @@
         <activity android:name=".AssignmentChooseAct"/>
         <activity android:name=".LoginAct" />
         <activity android:name=".DetailsAct" />
-        <activity android:name=".SubmitionAct" />
-        <activity android:name=".ResSub2"></activity>
-        <activity android:name=".OfficeAct"/>
-        <activity android:name=".ResidenceAct"/>
+       <activity android:name=".ServiceOffice1"/>
+        <activity android:name=".ServiceOffice2"/>
+        <activity android:name=".ServiceRes1"/>
+        <activity android:name=".ServiceRes2"/>
+        <activity android:name=".LocationPhoto"/>
 
     </application>
 
