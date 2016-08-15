@@ -27,7 +27,8 @@
         <activity android:name=".DetailsAct" />
         <activity android:name=".SubmitionAct" />
         <activity android:name=".ResSub2"></activity>
-        <activity android:name=".new1"></activity>
+        <activity android:name=".OfficeAct"/>
+        <activity android:name=".ResidenceAct"/>
 
     </application>
 
