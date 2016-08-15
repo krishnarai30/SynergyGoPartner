@@ -66,8 +66,8 @@ public class DetailsAct extends AppCompatActivity {
     }
 
     public void onClickSubmit(View view){
-
-        Intent intent2=new Intent(DetailsAct.this,SubmitionAct.class);
+        // yahan pe if else loop laga dio karke ki if buisness ye kholo if service to ye kholo
+        Intent intent2=new Intent(DetailsAct.this,SerRes1Act.class);
         startActivity(intent2);
     }
 }

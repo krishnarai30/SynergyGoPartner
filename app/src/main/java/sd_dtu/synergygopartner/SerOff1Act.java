@@ -4,22 +4,17 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
-
-public class LoginAct extends AppCompatActivity {
-
-
+public class SerOff1Act extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_ser_off1);
     }
+    public void onClickNextso1(View view){
 
-    public void onClickLogin(View view){
-
-        Intent intent=new Intent(LoginAct.this,AssignmentChooseAct.class);
+        Intent intent=new Intent(SerOff1Act.this,LocationPhoto.class);
         startActivity(intent);
     }
 }

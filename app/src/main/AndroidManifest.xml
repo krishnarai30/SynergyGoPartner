@@ -3,9 +3,8 @@
     package="sd_dtu.synergygopartner">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
 
     <application
         android:allowBackup="true"
@@ -20,17 +19,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-        <activity android:name=".AssignmentChooseAct"/>
+        <activity android:name=".AssignmentChooseAct" />
         <activity android:name=".LoginAct" />
         <activity android:name=".DetailsAct" />
-       <activity android:name=".ServiceOffice1"/>
-        <activity android:name=".ServiceOffice2"/>
-        <activity android:name=".ServiceRes1"/>
-        <activity android:name=".ServiceRes2"/>
-        <activity android:name=".LocationPhoto"/>
-
+        <activity android:name=".ServiceOffice1" />
+        <activity android:name=".ServiceOffice2" />
+        <activity android:name=".ServiceRes1" />
+        <activity android:name=".SerRes2Act" />
+        <activity android:name=".LocationPhoto" />
+        <activity android:name=".SerRes1Act" />
+        <activity android:name=".SerOff1Act" />
+        <activity android:name=".SerOff2Act" />
+        <activity android:name=".BuisRes1Act" />
+        <activity android:name=".BuisRes2Act" />
+        <activity android:name=".BuisOff1Act" />
+        <activity android:name=".BuisOff2Act"></activity>
     </application>
 
 </manifest>

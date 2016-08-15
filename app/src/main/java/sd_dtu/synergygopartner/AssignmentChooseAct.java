@@ -25,7 +25,7 @@ public class AssignmentChooseAct extends AppCompatActivity {
         fileslv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent1=new Intent(AssignmentChooseAct.this,LoginAct.class);
+                Intent intent1=new Intent(AssignmentChooseAct.this,DetailsAct.class);
                 startActivity(intent1);
             }
         });
