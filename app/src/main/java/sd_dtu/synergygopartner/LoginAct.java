@@ -24,7 +24,7 @@ public class LoginAct extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent=new Intent(LoginAct.this,OfficeAct.class);
+                Intent intent=new Intent(LoginAct.this,ServiceOffice1.class);
                 startActivity(intent);
 
             }
@@ -34,7 +34,7 @@ public class LoginAct extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent=new Intent(LoginAct.this,ResidenceAct.class);
+                Intent intent=new Intent(LoginAct.this,ServiceRes1.class);
                 startActivity(intent);
             }
         });

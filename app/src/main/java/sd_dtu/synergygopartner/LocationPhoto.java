@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class SubmitionAct extends Activity implements LocationListener {
+public class LocationPhoto extends Activity implements LocationListener {
 
     protected LocationManager locationManager;
     private double latitude = 0;
@@ -40,7 +40,7 @@ public class SubmitionAct extends Activity implements LocationListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_submition);
+        setContentView(R.layout.location_photo);
 
         nbtn=(Button)findViewById(R.id.nbtn);
         nbtn.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +64,7 @@ public class SubmitionAct extends Activity implements LocationListener {
             }
         });
 
-        dialog = new ProgressDialog(SubmitionAct.this);
+        dialog = new ProgressDialog(LocationPhoto.this);
         dialog.show();
         dialog.setMessage("Getting Coordinates");
 
