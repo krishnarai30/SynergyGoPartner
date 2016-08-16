@@ -9,8 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Res1Act extends AppCompatActivity {
 
@@ -21,6 +24,8 @@ public class Res1Act extends AppCompatActivity {
     ArrayAdapter<CharSequence> maritaladapter;
     ArrayAdapter<CharSequence> localityadapter;
     DatabaseReference databaseReference;
+    long xyz;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,21 @@ public class Res1Act extends AppCompatActivity {
         residence =(Spinner) findViewById(R.id.ResStatusSpinner);
         maritalStatus=(Spinner) findViewById(R.id.MaritalStatusSpinner);
         locality=(Spinner) findViewById(R.id.Localityspinner);
+
+
+
+        databaseReference=FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("file").child("Continue").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                xyz= dataSnapshot.child("Residence").getChildrenCount()+1;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
 
@@ -166,6 +186,7 @@ public class Res1Act extends AppCompatActivity {
 
     public void onClicknextsr1(View view){
 
+
         sname=name.getText().toString().trim();
         snoFamilyMem=noFamilyMem.getText().toString().trim();
         sworkingMem=workingMem.getText().toString().trim();
@@ -175,21 +196,27 @@ public class Res1Act extends AppCompatActivity {
 
 
 
+
         databaseReference= FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("file").child("Residence").child("Name of Person Contacted").setValue(sname);
-        databaseReference.child("file").child("Residence").child("Residential Status").setValue(sresidence);
-        databaseReference.child("file").child("Residence").child("Marital Status").setValue(smaritalStatus);
-        databaseReference.child("file").child("Residence").child("No Of Family Members").setValue(snoFamilyMem);
-        databaseReference.child("file").child("Residence").child("Working Members").setValue(sworkingMem);
-        databaseReference.child("file").child("Residence").child("Dependent Members").setValue(sdependMem);
-        databaseReference.child("file").child("Residence").child("Children").setValue(schildren);
-        databaseReference.child("file").child("Residence").child("Spouse Emp").setValue(sspouseEmp);
-        databaseReference.child("file").child("Residence").child("Locality").setValue(slocality);
+       long xxyz=xyz+1;
+        databaseReference.child("file").child("Residence").child(" "+xxyz+1).child("Name of Person Contacted").setValue(sname);
+        databaseReference.child("file").child("Residence").child(" "+xxyz).child("Residential Status").setValue(sresidence);
+        databaseReference.child("file").child("Residence").child(" "+xxyz).child("Marital Status").setValue(smaritalStatus);
+        databaseReference.child("file").child("Residence").child(" "+xxyz).child("No Of Family Members").setValue(snoFamilyMem);
+        databaseReference.child("file").child("Residence").child(" "+xxyz).child("Working Members").setValue(sworkingMem);
+        databaseReference.child("file").child("Residence").child(" "+xxyz).child("Dependent Members").setValue(sdependMem);
+        databaseReference.child("file").child("Residence").child(" "+xxyz).child("Children").setValue(schildren);
+        databaseReference.child("file").child("Residence").child(" "+xxyz).child("Spouse Emp").setValue(sspouseEmp);
+        databaseReference.child("file").child("Residence").child(" "+xxyz).child("Locality").setValue(slocality);
+
+
+
 
 
 
 
         Intent intent=new Intent(Res1Act.this,SerRes2Act.class);
+        intent.putExtra("choice",xxyz);
         startActivity(intent);
     }
 }

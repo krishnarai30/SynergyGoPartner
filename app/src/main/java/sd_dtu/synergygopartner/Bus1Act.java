@@ -9,8 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Bus1Act extends AppCompatActivity {
 
@@ -20,6 +23,7 @@ public class Bus1Act extends AppCompatActivity {
     String stypeCompany;
     ArrayAdapter<CharSequence> typecompadapter;
     DatabaseReference databaseReference;
+    int i=1;
 
 
     @Override
@@ -35,6 +39,18 @@ public class Bus1Act extends AppCompatActivity {
         YearCompany= (EditText)findViewById(R.id.yearseditText);
         noEmployee= (EditText)findViewById(R.id.EmpeditText);
         typeCompany= (Spinner) findViewById(R.id.spinnecompanytyper);
+
+     databaseReference.child("file").child("Continue").child("Bussiness").addValueEventListener(new ValueEventListener() {
+         @Override
+         public void onDataChange(DataSnapshot dataSnapshot) {
+             i=dataSnapshot.getValue(int.class);
+         }
+
+         @Override
+         public void onCancelled(DatabaseError databaseError) {
+
+         }
+     });
 
 
         typecompadapter = ArrayAdapter.createFromResource(this,R.array.company,R.layout.support_simple_spinner_dropdown_item);
@@ -70,27 +86,33 @@ public class Bus1Act extends AppCompatActivity {
 
     public void onClickNextb1(View view){
 
-        sname=name.getText().toString().trim();
-        sdesig=desig.getText().toString().trim();
-        scontact=contact.getText().toString().trim();
-        soffTele=offTele.getText().toString().trim();
-        sbussNature=bussNature.getText().toString().trim();
-        sYearCompany=YearCompany.getText().toString().trim();
-        snoEmployee=noEmployee.getText().toString().trim();
+
+            sname = name.getText().toString().trim();
+            sdesig = desig.getText().toString().trim();
+            scontact = contact.getText().toString().trim();
+            soffTele = offTele.getText().toString().trim();
+            sbussNature = bussNature.getText().toString().trim();
+            sYearCompany = YearCompany.getText().toString().trim();
+            snoEmployee = noEmployee.getText().toString().trim();
 
 
-        databaseReference= FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("file").child("Bussiness").child("Person Contacted").setValue(sname);
-        databaseReference.child("file").child("Bussiness").child("Designation").setValue(sdesig);
-        databaseReference.child("file").child("Bussiness").child("Contact No.").setValue(scontact);
-        databaseReference.child("file").child("Bussiness").child("Office Telephone No.").setValue(soffTele);
-        databaseReference.child("file").child("Bussiness").child("Nature Of Business").setValue(sbussNature);
-        databaseReference.child("file").child("Bussiness").child("No. of Years of Company").setValue(sYearCompany);
-        databaseReference.child("file").child("Bussiness").child("No. of Employees").setValue(snoEmployee);
-        databaseReference.child("file").child("Bussiness").child("Type of Company").setValue(stypeCompany);
+            databaseReference = FirebaseDatabase.getInstance().getReference();
+            databaseReference.child("file").child("Bussiness").child(" "+i).child("Person Contacted").setValue(sname);
+            databaseReference.child("file").child("Bussiness").child(" "+i).child("Designation").setValue(sdesig);
+            databaseReference.child("file").child("Bussiness").child(" "+i).child("Contact No.").setValue(scontact);
+            databaseReference.child("file").child("Bussiness").child(" "+i).child("Office Telephone No.").setValue(soffTele);
+            databaseReference.child("file").child("Bussiness").child(" "+i).child("Nature Of Business").setValue(sbussNature);
+            databaseReference.child("file").child("Bussiness").child(" "+i).child("No. of Years of Company").setValue(sYearCompany);
+            databaseReference.child("file").child("Bussiness").child(" "+i).child("No. of Employees").setValue(snoEmployee);
+            databaseReference.child("file").child("Bussiness").child(" "+i).child("Type of Company").setValue(stypeCompany);
+
+        databaseReference.child("file").child("Continue").child("Bussiness").setValue(i);
+        i++;
 
 
-        Intent intent=new Intent(Bus1Act.this,LocationPhoto.class);
-        startActivity(intent);
+            Intent intent = new Intent(Bus1Act.this, LocationPhoto.class);
+            startActivity(intent);
+
+
     }
 }

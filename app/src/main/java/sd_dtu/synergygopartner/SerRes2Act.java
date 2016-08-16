@@ -28,6 +28,7 @@ public class SerRes2Act extends AppCompatActivity {
     DatabaseReference databaseReference;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +39,8 @@ public class SerRes2Act extends AppCompatActivity {
         politicalInflu= (EditText)findViewById(R.id.PoliticaleditText);
         otherRemarks= (EditText)findViewById(R.id.OtherRemarkseditText);
         vehicle=(Spinner) findViewById(R.id.Vehiclespinner);
+
+
 
 
 
@@ -77,6 +80,8 @@ public class SerRes2Act extends AppCompatActivity {
 
     public void onClickFinishsr(View view){
 
+       long abc=getIntent().getIntExtra("choice",3);
+
         sregistration=registration.getText().toString().trim();
         scarpetArea=carpetArea.getText().toString().trim();
         spoliticalInflu=politicalInflu.getText().toString().trim();
@@ -85,11 +90,15 @@ public class SerRes2Act extends AppCompatActivity {
 
 
         databaseReference= FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("file").child("Residence").child("Vehicle Seen").setValue(svehicle);
-        databaseReference.child("file").child("Residence").child("Registeration No").setValue(sregistration);
-        databaseReference.child("file").child("Residence").child("Carpet Area").setValue(scarpetArea);
-        databaseReference.child("file").child("Residence").child("Political Influence").setValue(spoliticalInflu);
-        databaseReference.child("file").child("Residence").child("Other Remarks").setValue(sotherRemarks);
+        databaseReference.child("file").child("Residence").child(" "+abc).child("Vehicle Seen").setValue(svehicle);
+        databaseReference.child("file").child("Residence").child(" "+abc).child("Registeration No").setValue(sregistration);
+        databaseReference.child("file").child("Residence").child(" "+abc).child("Carpet Area").setValue(scarpetArea);
+        databaseReference.child("file").child("Residence").child(" "+abc).child("Political Influence").setValue(spoliticalInflu);
+        databaseReference.child("file").child("Residence").child(" "+abc).child("Other Remarks").setValue(sotherRemarks);
+
+        databaseReference.child("file").child("Continue").child("Residence").setValue(abc);
+
+
 
 
         Intent intent2=new Intent(SerRes2Act.this,LocationPhoto.class);
