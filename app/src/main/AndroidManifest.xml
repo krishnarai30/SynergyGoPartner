@@ -22,16 +22,12 @@
         <activity android:name=".AssignmentChooseAct" />
         <activity android:name=".LoginAct" />
         <activity android:name=".DetailsAct" />
-       
-        <activity android:name=".SerRes2Act" />
+        <activity android:name=".Res2Act" />
         <activity android:name=".LocationPhoto" />
-        <activity android:name=".SerRes1Act" />
-        <activity android:name=".SerOff1Act" />
-        <activity android:name=".SerOff2Act" />
-        <activity android:name=".BuisRes1Act" />
-        <activity android:name=".BuisRes2Act" />
-        <activity android:name=".BuisOff1Act" />
-        <activity android:name=".BuisOff2Act"></activity>
+        <activity android:name=".Res1Act" />
+        <activity android:name=".Off1Act" />
+        <activity android:name=".Off2Act" />
+        <activity android:name=".Bus1Act" />
     </application>
 
 </manifest>

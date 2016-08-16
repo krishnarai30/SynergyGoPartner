@@ -5,16 +5,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class SerRes1Act extends AppCompatActivity {
+public class Off2Act extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ser_res1);
+        setContentView(R.layout.activity_off2);
     }
-    public void onClicknextsr1(View view){
+    public void onClickFinishso(View view){
 
-        Intent intent=new Intent(SerRes1Act.this,LocationPhoto.class);
+        Intent intent=new Intent(Off2Act.this,AssignmentChooseAct.class);
         startActivity(intent);
     }
 }

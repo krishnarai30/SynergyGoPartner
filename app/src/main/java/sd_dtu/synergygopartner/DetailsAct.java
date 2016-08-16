@@ -66,8 +66,18 @@ public class DetailsAct extends AppCompatActivity {
     }
 
     public void onClickSubmit(View view){
-        // yahan pe if else loop laga dio karke ki if buisness ye kholo if service to ye kholo
-        Intent intent2=new Intent(DetailsAct.this,SerRes1Act.class);
+
+        if(addtypestr.equals("Residence")){
+        Intent intent2=new Intent(DetailsAct.this,Res1Act.class);
         startActivity(intent2);
+        }
+        if(addtypestr.equals("Office")){
+            Intent intent2=new Intent(DetailsAct.this,Off1Act.class);
+            startActivity(intent2);
+        }
+        if(addtypestr.equals("Business")){
+            Intent intent2=new Intent(DetailsAct.this,Bus1Act.class);
+            startActivity(intent2);
+        }
     }
 }
