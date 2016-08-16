@@ -24,6 +24,11 @@
 
     </string-array>
 
+    <string-array name="company">
+        <item>C1</item>
+        <item>C2</item>
+
+    </string-array>
     <string-array name="transfer">
         <item>Yes</item>
         <item>No</item>

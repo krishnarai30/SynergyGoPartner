@@ -9,18 +9,23 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class SerRes1Act extends AppCompatActivity {
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+public class Res1Act extends AppCompatActivity {
 
     EditText name,noFamilyMem,workingMem,dependMem,children,spouseEmp;
+    String sname,snoFamilyMem,sworkingMem,sdependMem,schildren,sspouseEmp,sresidence,smaritalStatus,slocality;
     Spinner residence,maritalStatus,locality;
     ArrayAdapter<CharSequence> residenceadapter;
     ArrayAdapter<CharSequence> maritaladapter;
     ArrayAdapter<CharSequence> localityadapter;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ser_res1);
+        setContentView(R.layout.activity_res1);
 
         name= (EditText)findViewById(R.id.Personnameet);
         noFamilyMem=(EditText)findViewById(R.id.FamilymemeditText);
@@ -41,7 +46,30 @@ public class SerRes1Act extends AppCompatActivity {
         residence.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+                switch (i)
+                {
+                    case 0:
+                        sresidence="Self Owned";
+                        break;
+                    case 1:
+                        sresidence="Owned By Relatives";
+                        break;
+                    case 2:
+                        sresidence=" Rented";
+                        break;
+                    case 3:
+                        sresidence="Paying Guest";
+                        break;
+                    case 4:
+                        sresidence="Owned by Parents";
+                        break;
+                    case 5:
+                        sresidence=" Owned by Friends";
+                        break;
+                    case 6:
+                        sresidence="Company Accommodation";
+                        break;
+                }
 
 
             }
@@ -62,7 +90,13 @@ public class SerRes1Act extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-
+                switch (i) {
+                    case 0:
+                        smaritalStatus = "Single";
+                        break;
+                    case 1:
+                        smaritalStatus = "Married";
+                }
 
             }
 
@@ -82,7 +116,37 @@ public class SerRes1Act extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+                switch (i)
+                {
 
+                    case 0:
+                        slocality="Posh Locality";
+                        break;
+                    case 1:
+                        slocality="Village Area";
+                        break;
+                    case 2:
+                        slocality="Lodging";
+                        break;
+                    case 3:
+                        slocality="Upper Middle Class";
+                        break;
+                    case 4:
+                        slocality="Lower Middle Class";
+                        break;
+                    case 5:
+                        slocality="Slum Locality";
+                        break;
+                    case 6:
+                        slocality="Middle Class";
+                        break;
+                    case 7:
+                        slocality="Residential Complex";
+                        break;
+                    case 8:
+                        slocality="Others";
+                        break;
+                }
 
             }
 
@@ -102,7 +166,30 @@ public class SerRes1Act extends AppCompatActivity {
 
     public void onClicknextsr1(View view){
 
-        Intent intent=new Intent(SerRes1Act.this,LocationPhoto.class);
+        sname=name.getText().toString().trim();
+        snoFamilyMem=noFamilyMem.getText().toString().trim();
+        sworkingMem=workingMem.getText().toString().trim();
+        sdependMem=dependMem.getText().toString().trim();
+        schildren=children.getText().toString().trim();
+        sspouseEmp=spouseEmp.getText().toString().trim();
+
+
+
+        databaseReference= FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("file").child("Residence").child("Name of Person Contacted").setValue(sname);
+        databaseReference.child("file").child("Residence").child("Residential Status").setValue(sresidence);
+        databaseReference.child("file").child("Residence").child("Marital Status").setValue(smaritalStatus);
+        databaseReference.child("file").child("Residence").child("No Of Family Members").setValue(snoFamilyMem);
+        databaseReference.child("file").child("Residence").child("Working Members").setValue(sworkingMem);
+        databaseReference.child("file").child("Residence").child("Dependent Members").setValue(sdependMem);
+        databaseReference.child("file").child("Residence").child("Children").setValue(schildren);
+        databaseReference.child("file").child("Residence").child("Spouse Emp").setValue(sspouseEmp);
+        databaseReference.child("file").child("Residence").child("Locality").setValue(slocality);
+
+
+
+
+        Intent intent=new Intent(Res1Act.this,SerRes2Act.class);
         startActivity(intent);
     }
 }

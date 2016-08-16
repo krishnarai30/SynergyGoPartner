@@ -22,14 +22,16 @@ import com.google.firebase.database.ValueEventListener;
 public class SerRes2Act extends AppCompatActivity {
 
     EditText registration,carpetArea,politicalInflu,otherRemarks;
+    String sregistration,scarpetArea,spoliticalInflu,sotherRemarks,svehicle;
     Spinner vehicle;
     ArrayAdapter<CharSequence> vehicleadapter;
+    DatabaseReference databaseReference;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ser_res2);
+        setContentView(R.layout.activity_res2);
 
         registration= (EditText)findViewById(R.id.RegNoeditText);
         carpetArea= (EditText)findViewById(R.id.CarpetAreaeditText);
@@ -47,6 +49,18 @@ public class SerRes2Act extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+                switch (i)
+                {
+                    case 0:
+                        svehicle="Two Wheeler";
+                        break;
+                    case 1:
+                        svehicle="Car";
+                        break;
+                    case 2:
+                        svehicle="other";
+
+                }
 
 
             }
@@ -63,7 +77,22 @@ public class SerRes2Act extends AppCompatActivity {
 
     public void onClickFinishsr(View view){
 
-        Intent intent2=new Intent(SerRes2Act.this,AssignmentChooseAct.class);
+        sregistration=registration.getText().toString().trim();
+        scarpetArea=carpetArea.getText().toString().trim();
+        spoliticalInflu=politicalInflu.getText().toString().trim();
+        sotherRemarks=otherRemarks.getText().toString().trim();
+
+
+
+        databaseReference= FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("file").child("Residence").child("Vehicle Seen").setValue(svehicle);
+        databaseReference.child("file").child("Residence").child("Registeration No").setValue(sregistration);
+        databaseReference.child("file").child("Residence").child("Carpet Area").setValue(scarpetArea);
+        databaseReference.child("file").child("Residence").child("Political Influence").setValue(spoliticalInflu);
+        databaseReference.child("file").child("Residence").child("Other Remarks").setValue(sotherRemarks);
+
+
+        Intent intent2=new Intent(SerRes2Act.this,LocationPhoto.class);
         startActivity(intent2);
     }
 }

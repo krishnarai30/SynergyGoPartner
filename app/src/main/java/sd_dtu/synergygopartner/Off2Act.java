@@ -9,18 +9,23 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class SerOff2Act extends AppCompatActivity {
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+public class Off2Act extends AppCompatActivity {
     EditText companyNature,remarks;
+    String scompanyNature,sremarks,sjobType,sworkOrg,sjobTransfer;
     Spinner  jobType,workOrg,jobTransfer;
     ArrayAdapter<CharSequence> jobtypeadapter;
     ArrayAdapter<CharSequence> workorgadapter;
     ArrayAdapter<CharSequence> jobtransferadapter;
+    DatabaseReference databaseReference;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ser_off2);
+        setContentView(R.layout.activity_off2);
 
         companyNature=(EditText)findViewById(R.id.CompanyNatureeditText);
         remarks=(EditText)findViewById(R.id.OtherRemarkseditText);
@@ -37,7 +42,26 @@ public class SerOff2Act extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+                switch (i)
+                {
 
+                    case 0:
+                        sjobType="Permanent";
+                        break;
+                    case 1:
+                        sjobType="Probation";
+                        break;
+                    case 2:
+                        sjobType="Contract Worker";
+                        break;
+                    case 3:
+                        sjobType="Temporary Worker";
+                        break;
+                    case 4:
+                        sjobType="Others";
+                        break;
+
+                }
 
             }
 
@@ -56,7 +80,31 @@ public class SerOff2Act extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+                switch (i)
+                {
+                    case 0:
+                        sworkOrg="Typist";
+                        break;
+                    case 1:
+                        sworkOrg="Stenographer";
+                        break;
+                    case 2:
+                        sworkOrg="Supervisor";
+                        break;
+                    case 3:
+                        sworkOrg="Junior Management";
+                        break;
+                    case 4:
+                        sworkOrg="Middle Management";
+                        break;
+                    case 5:
+                        sworkOrg="Senior Management";
+                        break;
+                    case 6:
+                        sworkOrg="Other Management";
+                        break;
 
+                }
 
             }
 
@@ -75,7 +123,15 @@ public class SerOff2Act extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-
+                        switch(i)
+                        {
+                            case 0:
+                                sjobTransfer="Yes";
+                                break;
+                            case 1:
+                                sjobTransfer="No";
+                                break;
+                        }
 
             }
 
@@ -89,7 +145,20 @@ public class SerOff2Act extends AppCompatActivity {
 
     public void onClickFinishso(View view){
 
-        Intent intent=new Intent(SerOff2Act.this,AssignmentChooseAct.class);
+        scompanyNature=companyNature.getText().toString().trim();
+        sremarks=remarks.getText().toString().trim();
+
+
+        databaseReference= FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("file").child("Office").child("Nature of Companies Business").setValue(scompanyNature);
+        databaseReference.child("file").child("Office").child("Type of Job").setValue(sjobType);
+        databaseReference.child("file").child("Office").child("Working in Organisation as").setValue(sworkOrg);
+        databaseReference.child("file").child("Office").child("Job Transferable").setValue(sjobTransfer);
+        databaseReference.child("file").child("Office").child("Other Remarks").setValue(sremarks);
+
+
+
+        Intent intent=new Intent(Off2Act.this,LocationPhoto.class);
         startActivity(intent);
     }
 }
