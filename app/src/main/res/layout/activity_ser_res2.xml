@@ -34,16 +34,18 @@
         android:id="@+id/textView"
         android:layout_below="@+id/Vehiclespinner"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/RegNoeditText"
-        android:layout_below="@+id/Vehiclespinner"
-        android:layout_toRightOf="@+id/textView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/textView52"
+        android:layout_alignRight="@+id/Vehiclespinner"
+        android:layout_alignEnd="@+id/Vehiclespinner"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -53,7 +55,8 @@
         android:id="@+id/textView2"
         android:layout_below="@+id/RegNoeditText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -61,11 +64,9 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/CarpetAreaeditText"
-        android:layout_alignTop="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
         android:layout_alignLeft="@+id/RegNoeditText"
-        android:layout_alignStart="@+id/RegNoeditText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignStart="@+id/RegNoeditText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -75,16 +76,17 @@
         android:id="@+id/textView3"
         android:layout_below="@+id/CarpetAreaeditText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/PoliticaleditText"
-        android:layout_alignTop="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
         android:layout_toRightOf="@+id/textView3"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignRight="@+id/CarpetAreaeditText"
+        android:layout_alignEnd="@+id/CarpetAreaeditText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -96,7 +98,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_toLeftOf="@+id/CarpetAreaeditText"
-        android:layout_toStartOf="@+id/CarpetAreaeditText" />
+        android:layout_toStartOf="@+id/CarpetAreaeditText"
+        android:layout_marginTop="20dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -104,11 +107,9 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/OtherRemarkseditText"
-        android:layout_alignTop="@+id/textView4"
-        android:layout_alignLeft="@+id/PoliticaleditText"
-        android:layout_alignStart="@+id/PoliticaleditText"
-        android:layout_alignRight="@+id/PoliticaleditText"
-        android:layout_alignEnd="@+id/PoliticaleditText" />
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_toRightOf="@+id/textView4"
+        android:layout_toEndOf="@+id/textView4" />
 
     <Button
         android:layout_width="wrap_content"

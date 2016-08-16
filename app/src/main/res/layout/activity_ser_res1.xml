@@ -35,23 +35,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name"
         android:ems="10"
         android:id="@+id/Personnameet"
-        android:layout_alignTop="@+id/textView43"
+        android:hint="Name"
+        android:layout_above="@+id/textView44"
         android:layout_toRightOf="@+id/textView43"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_toEndOf="@+id/textView43" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ResStatusSpinner"
-        android:layout_alignTop="@+id/textView44"
-        android:layout_alignRight="@+id/Personnameet"
-        android:layout_alignEnd="@+id/Personnameet"
-        android:layout_alignLeft="@+id/Personnameet"
-        android:layout_alignStart="@+id/Personnameet" />
+        android:layout_alignBottom="@+id/textView44"
+        android:layout_alignRight="@+id/MaritalStatusSpinner"
+        android:layout_alignEnd="@+id/MaritalStatusSpinner" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -61,17 +58,16 @@
         android:id="@+id/textView45"
         android:layout_below="@+id/ResStatusSpinner"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/MaritalStatusSpinner"
-        android:layout_below="@+id/ResStatusSpinner"
-        android:layout_alignRight="@+id/ResStatusSpinner"
-        android:layout_alignEnd="@+id/ResStatusSpinner"
-        android:layout_toRightOf="@+id/textView43"
-        android:layout_toEndOf="@+id/textView43" />
+        android:layout_alignBottom="@+id/textView45"
+        android:layout_toRightOf="@+id/Localityspinner"
+        android:layout_toEndOf="@+id/Localityspinner" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -81,7 +77,8 @@
         android:id="@+id/textView46"
         android:layout_below="@+id/MaritalStatusSpinner"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="40dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -89,9 +86,9 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/FamilymemeditText"
-        android:layout_alignTop="@+id/textView46"
-        android:layout_toRightOf="@+id/textView43"
-        android:layout_toEndOf="@+id/textView43" />
+        android:layout_alignBottom="@+id/textView46"
+        android:layout_toRightOf="@+id/nextsr1btn"
+        android:layout_toEndOf="@+id/nextsr1btn" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -101,7 +98,8 @@
         android:id="@+id/textView47"
         android:layout_below="@+id/FamilymemeditText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -109,9 +107,9 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/workingmemeditText"
-        android:layout_below="@+id/FamilymemeditText"
-        android:layout_toRightOf="@+id/textView43"
-        android:layout_toEndOf="@+id/textView43" />
+        android:layout_alignBottom="@+id/textView47"
+        android:layout_alignLeft="@+id/dependenteditText"
+        android:layout_alignStart="@+id/dependenteditText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -121,7 +119,8 @@
         android:id="@+id/textView48"
         android:layout_below="@+id/workingmemeditText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -129,10 +128,9 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/dependenteditText"
-        android:layout_below="@+id/workingmemeditText"
-        android:layout_toEndOf="@+id/textView48"
-        android:layout_alignLeft="@+id/workingmemeditText"
-        android:layout_alignStart="@+id/workingmemeditText" />
+        android:layout_alignBottom="@+id/textView48"
+        android:layout_toRightOf="@+id/textView48"
+        android:layout_toEndOf="@+id/textView48" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -142,7 +140,8 @@
         android:id="@+id/textView49"
         android:layout_below="@+id/dependenteditText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -150,11 +149,9 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/ChildreneditText"
-        android:layout_below="@+id/dependenteditText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/dependenteditText"
-        android:layout_alignStart="@+id/dependenteditText" />
+        android:layout_alignBottom="@+id/textView49"
+        android:layout_alignRight="@+id/SpouseeditText"
+        android:layout_alignEnd="@+id/SpouseeditText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -164,17 +161,18 @@
         android:id="@+id/textView50"
         android:layout_below="@+id/ChildreneditText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/SpouseeditText"
-        android:layout_below="@+id/ChildreneditText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/textView48"
-        android:layout_toRightOf="@+id/textView48" />
+        android:layout_alignBottom="@+id/textView50"
+        android:layout_alignRight="@+id/Personnameet"
+        android:layout_alignEnd="@+id/Personnameet"
+        android:layout_alignLeft="@+id/nextsr1btn"
+        android:layout_alignStart="@+id/nextsr1btn" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -184,22 +182,24 @@
         android:id="@+id/textView51"
         android:layout_below="@+id/SpouseeditText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/Localityspinner"
-        android:layout_below="@+id/SpouseeditText"
-        android:layout_toRightOf="@+id/textView43"
-        android:layout_toEndOf="@+id/textView43" />
+        android:layout_alignBottom="@+id/textView51"
+        android:layout_alignLeft="@+id/ChildreneditText"
+        android:layout_alignStart="@+id/ChildreneditText" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Next"
         android:id="@+id/nextsr1btn"
-        android:layout_below="@+id/Localityspinner"
+        android:onClick="onClicknextsr1"
+        android:layout_below="@+id/textView51"
         android:layout_centerHorizontal="true"
-        android:onClick="onClicknextsr1" />
+        android:layout_marginTop="34dp" />
 </RelativeLayout>

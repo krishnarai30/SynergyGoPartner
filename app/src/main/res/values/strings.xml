@@ -17,6 +17,39 @@
         <item>Other</item>
     </string-array>
 
+
+    <string-array name="marital">
+        <item>Single</item>
+        <item>Married</item>
+
+    </string-array>
+
+    <string-array name="transfer">
+        <item>Yes</item>
+        <item>No</item>
+
+    </string-array>
+
+
+
+    <string-array name="jobtype">
+        <item>" Permanent"</item>
+        <item>"Probation"</item>
+        <item>"Contract Worker"</item>
+        <item>"Temporary Worker"</item>
+        <item>"Others"</item>
+    </string-array>
+
+    <string-array name="workorg">
+        <item> "Typist"</item>
+        <item>"Stenographer"</item>
+        <item>"Supervisor"</item>
+        <item>"Junior Management"</item>
+        <item>"Middle Management"</item>
+        <item>"Senior Management"</item>
+        <item>"Other Management"</item>
+    </string-array>
+
     <string-array name="locality">
         <item>Posh Locality</item>
         <item>Village Area</item>
@@ -28,4 +61,7 @@
         <item>Residential Complex</item>
         <item>Others</item>
     </string-array>
+
+
+
 </resources>

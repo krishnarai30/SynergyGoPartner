@@ -59,19 +59,18 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Working in Organisation as"
         android:id="@+id/textView41"
-        android:layout_below="@+id/jobtypespinner"
+        android:layout_below="@+id/textView40"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/jobtypespinner"
-        android:layout_toLeftOf="@+id/jobtypespinner" />
+        android:layout_marginTop="20dp" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/workingAsspinner"
-        android:layout_alignTop="@+id/textView41"
-        android:layout_toEndOf="@+id/textView41"
-        android:layout_toRightOf="@+id/textView41" />
+        android:layout_alignBottom="@+id/textView41"
+        android:layout_alignRight="@+id/jobtypespinner"
+        android:layout_alignEnd="@+id/jobtypespinner" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -79,7 +78,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Job Transferable"
         android:id="@+id/textView53"
-        android:layout_below="@+id/workingAsspinner"
+        android:layout_alignBottom="@+id/transferspinner"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -87,9 +86,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/transferspinner"
-        android:layout_below="@+id/workingAsspinner"
-        android:layout_toRightOf="@+id/textView53"
-        android:layout_toEndOf="@+id/textView53" />
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/workingAsspinner"
+        android:layout_alignStart="@+id/workingAsspinner" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -97,9 +96,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Other Remarks"
         android:id="@+id/textView54"
-        android:layout_below="@+id/transferspinner"
+        android:layout_below="@+id/textView41"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="114dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -108,8 +108,8 @@
         android:ems="10"
         android:id="@+id/OtherRemarkseditText"
         android:layout_alignTop="@+id/textView54"
-        android:layout_alignLeft="@+id/transferspinner"
-        android:layout_alignStart="@+id/transferspinner" />
+        android:layout_toRightOf="@+id/textView53"
+        android:layout_toEndOf="@+id/textView53" />
 
     <Button
         android:layout_width="wrap_content"
