@@ -18,12 +18,12 @@ import com.google.firebase.database.ValueEventListener;
 public class Off2Act extends AppCompatActivity {
     EditText companyNature,remarks;
     String scompanyNature,sremarks,sjobType,sworkOrg,sjobTransfer;
+    String filestr;
     Spinner  jobType,workOrg,jobTransfer;
     ArrayAdapter<CharSequence> jobtypeadapter;
     ArrayAdapter<CharSequence> workorgadapter;
     ArrayAdapter<CharSequence> jobtransferadapter;
     DatabaseReference databaseReference;
-    int i=1;
 
 
     @Override
@@ -38,17 +38,7 @@ public class Off2Act extends AppCompatActivity {
         jobTransfer=(Spinner)findViewById(R.id.transferspinner);
 
 
-        databaseReference.child("file").child("Continue").child("Office").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                i=dataSnapshot.getValue(int.class);
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
 
         jobtypeadapter=ArrayAdapter.createFromResource(this,R.array.jobtype,R.layout.support_simple_spinner_dropdown_item);
@@ -161,24 +151,24 @@ public class Off2Act extends AppCompatActivity {
 
 
     public void onClickFinishso(View view){
-
+        filestr=getIntent().getExtras().getString("file");
         scompanyNature=companyNature.getText().toString().trim();
         sremarks=remarks.getText().toString().trim();
 
 
         databaseReference= FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("file").child("Office").child(" "+i).child("Nature of Companies Business").setValue(scompanyNature);
-        databaseReference.child("file").child("Office").child(" "+i).child("Type of Job").setValue(sjobType);
-        databaseReference.child("file").child("Office").child(" "+i).child("Working in Organisation as").setValue(sworkOrg);
-        databaseReference.child("file").child("Office").child(" "+i).child("Job Transferable").setValue(sjobTransfer);
-        databaseReference.child("file").child("Office").child(" "+i).child("Other Remarks").setValue(sremarks);
+        databaseReference.child("file").child("Office").child(filestr).child("Nature of Companies Business").setValue(scompanyNature);
+        databaseReference.child("file").child("Office").child(filestr).child("Type of Job").setValue(sjobType);
+        databaseReference.child("file").child("Office").child(filestr).child("Working in Organisation as").setValue(sworkOrg);
+        databaseReference.child("file").child("Office").child(filestr).child("Job Transferable").setValue(sjobTransfer);
+        databaseReference.child("file").child("Office").child(filestr).child("Other Remarks").setValue(sremarks);
 
-        databaseReference.child("file").child("Continue").child("Office").setValue(i);
-        i++;
+
 
 
 
         Intent intent=new Intent(Off2Act.this,LocationPhoto.class);
+        intent.putExtra("file",filestr);
         startActivity(intent);
     }
 }

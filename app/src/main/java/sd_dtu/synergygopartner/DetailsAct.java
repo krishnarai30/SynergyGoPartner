@@ -14,7 +14,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class DetailsAct extends AppCompatActivity {
     DatabaseReference mDatabasechecked;
-    String addstr,agentidstr,filestr,applicantnamestr,contactpstr,contactsstr,landmarkstr,addtypestr;
+    public String addstr,agentidstr,filestr,applicantnamestr,contactpstr,contactsstr,landmarkstr,addtypestr;
     TextView addtv,agenttv,filetv,appnametv,cantactptv,contactstv,landmarktv,addtyptv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,14 +69,17 @@ public class DetailsAct extends AppCompatActivity {
 
         if(addtypestr.equals("Residence")){
         Intent intent2=new Intent(DetailsAct.this,Res1Act.class);
+            intent2.putExtra("file",filestr);
         startActivity(intent2);
         }
         if(addtypestr.equals("Office")){
             Intent intent2=new Intent(DetailsAct.this,Off1Act.class);
+            intent2.putExtra("file",filestr);
             startActivity(intent2);
         }
         if(addtypestr.equals("Business")){
             Intent intent2=new Intent(DetailsAct.this,Bus1Act.class);
+            intent2.putExtra("file",filestr);
             startActivity(intent2);
         }
     }

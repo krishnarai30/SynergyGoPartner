@@ -19,12 +19,12 @@ public class Res1Act extends AppCompatActivity {
 
     EditText name,noFamilyMem,workingMem,dependMem,children,spouseEmp;
     String sname,snoFamilyMem,sworkingMem,sdependMem,schildren,sspouseEmp,sresidence,smaritalStatus,slocality;
+    String filestr;
     Spinner residence,maritalStatus,locality;
     ArrayAdapter<CharSequence> residenceadapter;
     ArrayAdapter<CharSequence> maritaladapter;
     ArrayAdapter<CharSequence> localityadapter;
     DatabaseReference databaseReference;
-    long xyz;
 
 
     @Override
@@ -45,17 +45,7 @@ public class Res1Act extends AppCompatActivity {
 
 
         databaseReference=FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("file").child("Continue").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                xyz= dataSnapshot.child("Residence").getChildrenCount()+1;
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
 
 
@@ -187,6 +177,7 @@ public class Res1Act extends AppCompatActivity {
     public void onClicknextsr1(View view){
 
 
+        filestr=getIntent().getExtras().getString("file");
         sname=name.getText().toString().trim();
         snoFamilyMem=noFamilyMem.getText().toString().trim();
         sworkingMem=workingMem.getText().toString().trim();
@@ -198,16 +189,15 @@ public class Res1Act extends AppCompatActivity {
 
 
         databaseReference= FirebaseDatabase.getInstance().getReference();
-       long xxyz=xyz+1;
-        databaseReference.child("file").child("Residence").child(" "+xxyz+1).child("Name of Person Contacted").setValue(sname);
-        databaseReference.child("file").child("Residence").child(" "+xxyz).child("Residential Status").setValue(sresidence);
-        databaseReference.child("file").child("Residence").child(" "+xxyz).child("Marital Status").setValue(smaritalStatus);
-        databaseReference.child("file").child("Residence").child(" "+xxyz).child("No Of Family Members").setValue(snoFamilyMem);
-        databaseReference.child("file").child("Residence").child(" "+xxyz).child("Working Members").setValue(sworkingMem);
-        databaseReference.child("file").child("Residence").child(" "+xxyz).child("Dependent Members").setValue(sdependMem);
-        databaseReference.child("file").child("Residence").child(" "+xxyz).child("Children").setValue(schildren);
-        databaseReference.child("file").child("Residence").child(" "+xxyz).child("Spouse Emp").setValue(sspouseEmp);
-        databaseReference.child("file").child("Residence").child(" "+xxyz).child("Locality").setValue(slocality);
+        databaseReference.child("file").child("Residence").child(filestr).child("Name of Person Contacted").setValue(sname);
+        databaseReference.child("file").child("Residence").child(filestr).child("Residential Status").setValue(sresidence);
+        databaseReference.child("file").child("Residence").child(filestr).child("Marital Status").setValue(smaritalStatus);
+        databaseReference.child("file").child("Residence").child(filestr).child("No Of Family Members").setValue(snoFamilyMem);
+        databaseReference.child("file").child("Residence").child(filestr).child("Working Members").setValue(sworkingMem);
+        databaseReference.child("file").child("Residence").child(filestr).child("Dependent Members").setValue(sdependMem);
+        databaseReference.child("file").child("Residence").child(filestr).child("Children").setValue(schildren);
+        databaseReference.child("file").child("Residence").child(filestr).child("Spouse Emp").setValue(sspouseEmp);
+        databaseReference.child("file").child("Residence").child(filestr).child("Locality").setValue(slocality);
 
 
 
@@ -216,7 +206,7 @@ public class Res1Act extends AppCompatActivity {
 
 
         Intent intent=new Intent(Res1Act.this,SerRes2Act.class);
-        intent.putExtra("choice",xxyz);
+        intent.putExtra("file",filestr);
         startActivity(intent);
     }
 }

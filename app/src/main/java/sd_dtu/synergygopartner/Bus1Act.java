@@ -20,6 +20,7 @@ public class Bus1Act extends AppCompatActivity {
     EditText name,desig,contact,offTele,bussNature,YearCompany,noEmployee;
     String sname,sdesig,scontact,soffTele,sbussNature,sYearCompany,snoEmployee;
     Spinner typeCompany;
+    String filestr;
     String stypeCompany;
     ArrayAdapter<CharSequence> typecompadapter;
     DatabaseReference databaseReference;
@@ -86,32 +87,30 @@ public class Bus1Act extends AppCompatActivity {
 
     public void onClickNextb1(View view){
 
+        filestr=getIntent().getExtras().getString("file");
+        sname = name.getText().toString().trim();
+        sdesig = desig.getText().toString().trim();
+        scontact = contact.getText().toString().trim();
+        soffTele = offTele.getText().toString().trim();
+        sbussNature = bussNature.getText().toString().trim();
+        sYearCompany = YearCompany.getText().toString().trim();
+        snoEmployee = noEmployee.getText().toString().trim();
 
-            sname = name.getText().toString().trim();
-            sdesig = desig.getText().toString().trim();
-            scontact = contact.getText().toString().trim();
-            soffTele = offTele.getText().toString().trim();
-            sbussNature = bussNature.getText().toString().trim();
-            sYearCompany = YearCompany.getText().toString().trim();
-            snoEmployee = noEmployee.getText().toString().trim();
-
-
-            databaseReference = FirebaseDatabase.getInstance().getReference();
-            databaseReference.child("file").child("Bussiness").child(" "+i).child("Person Contacted").setValue(sname);
-            databaseReference.child("file").child("Bussiness").child(" "+i).child("Designation").setValue(sdesig);
-            databaseReference.child("file").child("Bussiness").child(" "+i).child("Contact No.").setValue(scontact);
-            databaseReference.child("file").child("Bussiness").child(" "+i).child("Office Telephone No.").setValue(soffTele);
-            databaseReference.child("file").child("Bussiness").child(" "+i).child("Nature Of Business").setValue(sbussNature);
-            databaseReference.child("file").child("Bussiness").child(" "+i).child("No. of Years of Company").setValue(sYearCompany);
-            databaseReference.child("file").child("Bussiness").child(" "+i).child("No. of Employees").setValue(snoEmployee);
-            databaseReference.child("file").child("Bussiness").child(" "+i).child("Type of Company").setValue(stypeCompany);
-
-        databaseReference.child("file").child("Continue").child("Bussiness").setValue(i);
-        i++;
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("file").child("Business").child(filestr).child("Person Contacted").setValue(sname);
+        databaseReference.child("file").child("Business").child(filestr).child("Designation").setValue(sdesig);
+        databaseReference.child("file").child("Business").child(filestr).child("Contact No.").setValue(scontact);
+        databaseReference.child("file").child("Business").child(filestr).child("Office Telephone No.").setValue(soffTele);
+        databaseReference.child("file").child("Business").child(filestr).child("Nature Of Business").setValue(sbussNature);
+        databaseReference.child("file").child("Business").child(filestr).child("No. of Years of Company").setValue(sYearCompany);
+        databaseReference.child("file").child("Business").child(filestr).child("No. of Employees").setValue(snoEmployee);
+        databaseReference.child("file").child("Business").child(filestr).child("Type of Company").setValue(stypeCompany);
 
 
-            Intent intent = new Intent(Bus1Act.this, LocationPhoto.class);
-            startActivity(intent);
+
+        Intent intent = new Intent(Bus1Act.this, LocationPhoto.class);
+        intent.putExtra("file",filestr);
+        startActivity(intent);
 
 
     }

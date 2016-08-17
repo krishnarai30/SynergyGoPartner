@@ -13,6 +13,7 @@ public class Off1Act extends AppCompatActivity {
 
     EditText name,designation,mobile,joinDate,desigApp,noYears;
     String sname,sdesignation,smobile,sjoinDate,sdesigApp,snoYears;
+    String filestr;
     DatabaseReference databaseReference;
 
     @Override
@@ -28,6 +29,7 @@ public class Off1Act extends AppCompatActivity {
         noYears=(EditText)findViewById(R.id.yearseditText);
     }
     public void onClickNextso1(View view){
+        filestr=getIntent().getExtras().getString("file");
         sname=name.getText().toString().trim();
         sdesignation=designation.getText().toString().trim();
         smobile=mobile.getText().toString().trim();
@@ -37,16 +39,17 @@ public class Off1Act extends AppCompatActivity {
 
 
         databaseReference= FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("file").child("Office").child("Name of Person Contacted").setValue(sname);
-        databaseReference.child("file").child("Office").child("Designation of Person Contacted").setValue(sdesignation);
-        databaseReference.child("file").child("Office").child("Mobile").setValue(smobile);
-        databaseReference.child("file").child("Office").child("Date of Joining of Applicant").setValue(sjoinDate);
-        databaseReference.child("file").child("Office").child("Designation of Applicant").setValue(sdesigApp);
-        databaseReference.child("file").child("Office").child("No. of years in present Employment ").setValue(snoYears);
+        databaseReference.child("file").child("Office").child(filestr).child("Name of Person Contacted").setValue(sname);
+        databaseReference.child("file").child("Office").child(filestr).child("Designation of Person Contacted").setValue(sdesignation);
+        databaseReference.child("file").child("Office").child(filestr).child("Mobile").setValue(smobile);
+        databaseReference.child("file").child("Office").child(filestr).child("Date of Joining of Applicant").setValue(sjoinDate);
+        databaseReference.child("file").child("Office").child(filestr).child("Designation of Applicant").setValue(sdesigApp);
+        databaseReference.child("file").child("Office").child(filestr).child("No. of years in present Employment ").setValue(snoYears);
 
 
 
         Intent intent=new Intent(Off1Act.this,Off2Act.class);
+        intent.putExtra("file",filestr);
         startActivity(intent);
     }
 }
