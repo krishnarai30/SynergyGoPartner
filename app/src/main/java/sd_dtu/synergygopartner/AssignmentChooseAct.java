@@ -1,6 +1,8 @@
 package sd_dtu.synergygopartner;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +34,12 @@ public class AssignmentChooseAct extends AppCompatActivity {
         fileslv=(ListView)findViewById(R.id.agentlv);
 
 
+       final ProgressDialog progressDialog=new ProgressDialog(this);
+        progressDialog.setMessage("Wait...");
+        progressDialog.show();
+        progressDialog.setCancelable(true);
+
+
         mDatabasechecked=FirebaseDatabase.getInstance().getReference();
 
         mDatabasechecked.child("file").addValueEventListener(new ValueEventListener() {
@@ -41,7 +50,11 @@ public class AssignmentChooseAct extends AppCompatActivity {
                     fi.add(file.getKey());
                 }
                 ArrayAdapter arrayAdapter = new ArrayAdapter(AssignmentChooseAct.this, android.R.layout.simple_list_item_1,fi);
+
                 fileslv.setAdapter(arrayAdapter);
+
+                progressDialog.dismiss();
+
             }
 
             @Override
@@ -50,11 +63,14 @@ public class AssignmentChooseAct extends AppCompatActivity {
             }
         });
 
+
         fileslv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
               Intent intent=new Intent(AssignmentChooseAct.this,DetailsAct.class);
+              String option= fi.get(i);
+                intent.putExtra("choice",option);
                 startActivity(intent);
             }
         });
