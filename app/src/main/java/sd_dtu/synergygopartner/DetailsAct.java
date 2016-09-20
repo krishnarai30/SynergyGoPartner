@@ -1,6 +1,7 @@
 package sd_dtu.synergygopartner;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,8 +42,9 @@ public class DetailsAct extends AppCompatActivity {
 
         mDatabasechecked = FirebaseDatabase.getInstance().getReference();
        final String str1=getIntent().getStringExtra("choice");
-
-        mDatabasechecked.child("file").addValueEventListener(new ValueEventListener() {
+        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        String AgentID= prefs.getString("AgentID","");
+        mDatabasechecked.child("file").child(AgentID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

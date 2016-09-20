@@ -2,6 +2,7 @@ package sd_dtu.synergygopartner;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,8 +42,9 @@ public class AssignmentChooseAct extends AppCompatActivity {
 
 
         mDatabasechecked=FirebaseDatabase.getInstance().getReference();
-
-        mDatabasechecked.child("file").addValueEventListener(new ValueEventListener() {
+        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        String AgentID= prefs.getString("AgentID","");
+        mDatabasechecked.child("file").child(AgentID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot file : dataSnapshot.getChildren()) {
