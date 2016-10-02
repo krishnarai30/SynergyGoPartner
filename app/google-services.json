@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "762278127875",
+    "firebase_url": "https://synergy-go.firebaseio.com",
+    "project_id": "synergy-go",
+    "storage_bucket": "synergy-go.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762278127875:android:3cdb163cb60fac78",
+        "android_client_info": {
+          "package_name": "sd_dtu.synergygoadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "762278127875-l0h8v0dk7jj7uk2i0o2kouqsfj8dgtd1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjPVW4NfG45Wiu5ejFWHWT8sznX-K5Uss"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762278127875:android:25d20c3217c3b029",
+        "android_client_info": {
+          "package_name": "sd_dtu.synergygopartner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "762278127875-l0h8v0dk7jj7uk2i0o2kouqsfj8dgtd1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjPVW4NfG45Wiu5ejFWHWT8sznX-K5Uss"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
