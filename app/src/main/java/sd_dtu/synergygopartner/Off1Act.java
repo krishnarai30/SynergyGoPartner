@@ -1,6 +1,11 @@
 package sd_dtu.synergygopartner;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,7 +34,7 @@ public class Off1Act extends AppCompatActivity {
         noYears=(EditText)findViewById(R.id.yearseditText);
     }
     public void onClickNextso1(View view){
-        filestr=getIntent().getExtras().getString("file");
+        filestr=getIntent().getStringExtra("file");
         sname=name.getText().toString().trim();
         sdesignation=designation.getText().toString().trim();
         smobile=mobile.getText().toString().trim();
@@ -38,18 +43,40 @@ public class Off1Act extends AppCompatActivity {
         snoYears=noYears.getText().toString().trim();
 
 
-        databaseReference= FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("file").child("Office").child(filestr).child("Name of Person Contacted").setValue(sname);
-        databaseReference.child("file").child("Office").child(filestr).child("Designation of Person Contacted").setValue(sdesignation);
-        databaseReference.child("file").child("Office").child(filestr).child("Mobile").setValue(smobile);
-        databaseReference.child("file").child("Office").child(filestr).child("Date of Joining of Applicant").setValue(sjoinDate);
-        databaseReference.child("file").child("Office").child(filestr).child("Designation of Applicant").setValue(sdesigApp);
-        databaseReference.child("file").child("Office").child(filestr).child("No. of years in present Employment ").setValue(snoYears);
+        if(isNetworkAvailable(getApplicationContext())) {
+//        databaseReference= FirebaseDatabase.getInstance().getReference();
+//        databaseReference.child("file").child("Office").child(filestr).child("Name of Person Contacted").setValue(sname);
+//        databaseReference.child("file").child("Office").child(filestr).child("Designation of Person Contacted").setValue(sdesignation);
+//        databaseReference.child("file").child("Office").child(filestr).child("Mobile").setValue(smobile);
+//        databaseReference.child("file").child("Office").child(filestr).child("Date of Joining of Applicant").setValue(sjoinDate);
+//        databaseReference.child("file").child("Office").child(filestr).child("Designation of Applicant").setValue(sdesigApp);
+//        databaseReference.child("file").child("Office").child(filestr).child("No. of years in present Employment ").setValue(snoYears);
 
 
+            Intent intent = new Intent(Off1Act.this, Off2Act.class);
+            intent.putExtra("file", filestr);
+            startActivity(intent);
+        } else {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("No Internet Connection...")
+                    .setMessage("Click Here to set Active connection")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    })
+                    .setIcon(R.drawable.error)
+                    .show();
+        }
+    }
 
-        Intent intent=new Intent(Off1Act.this,Off2Act.class);
-        intent.putExtra("file",filestr);
-        startActivity(intent);
+    public boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }

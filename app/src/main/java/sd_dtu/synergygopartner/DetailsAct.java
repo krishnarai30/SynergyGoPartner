@@ -1,7 +1,9 @@
 package sd_dtu.synergygopartner;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,36 +41,6 @@ public class DetailsAct extends AppCompatActivity {
         btn=(Button)findViewById(R.id.submitbtn);
 
 
-
-//        mDatabasechecked = FirebaseDatabase.getInstance().getReference();
-
-//        uniid = getIntent().getStringExtra("uniid");
-
-     // final String str1=getIntent().getStringExtra("choice");
-       // SharedPreferences prefs = getPreferences(MODE_PRIVATE);
-//        String AgentID= getIntent().getStringExtra("agentid");
-//        mDatabasechecked.child("file").child(AgentID).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                i=0;
-//                for (DataSnapshot file : dataSnapshot.getChildren()) {
-//                    Log.i("file", file.getKey());
-//                    si.add(file.getKey());
-//                    if(si.get(i).equals(str1)){
-//
-//                        addstr = dataSnapshot.child(str1).child("Address").getValue(String.class);
-//                        agentidstr = dataSnapshot.child(str1).child("Agent ID").getValue(String.class);
-//                        filestr = dataSnapshot.child("File").getValue(String.class);
-//                        applicantnamestr = dataSnapshot.child(str1).child("Applicant's name").getValue(String.class);
-//                        contactpstr = dataSnapshot.child(str1).child("Contact Primary").getValue(String.class);
-//                        contactsstr = dataSnapshot.child(str1).child("Contact Secondary").getValue(String.class);
-//                        landmarkstr = dataSnapshot.child(str1).child("Landmark").getValue(String.class);
-//                        addtypestr = dataSnapshot.child(str1).child("Address Type").getValue(String.class);
-//
-//                    }
-//                    i++;
-//                }
 
         addtypestr = getIntent().getStringExtra("addtype");
         addstr = getIntent().getStringExtra("address");
@@ -118,4 +90,40 @@ public class DetailsAct extends AppCompatActivity {
 //
 //                }
 //            });
+
+    public boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
 }
+
+
+//        mDatabasechecked = FirebaseDatabase.getInstance().getReference();
+
+//        uniid = getIntent().getStringExtra("uniid");
+
+// final String str1=getIntent().getStringExtra("choice");
+// SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+//        String AgentID= getIntent().getStringExtra("agentid");
+//        mDatabasechecked.child("file").child(AgentID).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                i=0;
+//                for (DataSnapshot file : dataSnapshot.getChildren()) {
+//                    Log.i("file", file.getKey());
+//                    si.add(file.getKey());
+//                    if(si.get(i).equals(str1)){
+//
+//                        addstr = dataSnapshot.child(str1).child("Address").getValue(String.class);
+//                        agentidstr = dataSnapshot.child(str1).child("Agent ID").getValue(String.class);
+//                        filestr = dataSnapshot.child("File").getValue(String.class);
+//                        applicantnamestr = dataSnapshot.child(str1).child("Applicant's name").getValue(String.class);
+//                        contactpstr = dataSnapshot.child(str1).child("Contact Primary").getValue(String.class);
+//                        contactsstr = dataSnapshot.child(str1).child("Contact Secondary").getValue(String.class);
+//                        landmarkstr = dataSnapshot.child(str1).child("Landmark").getValue(String.class);
+//                        addtypestr = dataSnapshot.child(str1).child("Address Type").getValue(String.class);
+//
+//                    }
+//                    i++;
+//                }

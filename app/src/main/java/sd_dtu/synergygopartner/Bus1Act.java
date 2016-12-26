@@ -1,6 +1,11 @@
 package sd_dtu.synergygopartner;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -41,45 +46,63 @@ public class Bus1Act extends AppCompatActivity {
         noEmployee= (EditText)findViewById(R.id.EmpeditText);
         typeCompany= (Spinner) findViewById(R.id.spinnecompanytyper);
 
-     databaseReference.child("file").child("Continue").child("Bussiness").addValueEventListener(new ValueEventListener() {
-         @Override
-         public void onDataChange(DataSnapshot dataSnapshot) {
-             i=dataSnapshot.getValue(int.class);
-         }
+        if(isNetworkAvailable(getApplicationContext())) {
 
-         @Override
-         public void onCancelled(DatabaseError databaseError) {
+//     databaseReference.child("file").child("Continue").child("Bussiness").addValueEventListener(new ValueEventListener() {
+//         @Override
+//         public void onDataChange(DataSnapshot dataSnapshot) {
+//             i=dataSnapshot.getValue(int.class);
+//         }
+//
+//         @Override
+//         public void onCancelled(DatabaseError databaseError) {
+//
+//         }
+//     });
 
-         }
-     });
+
+            typecompadapter = ArrayAdapter.createFromResource(this, R.array.company, R.layout.support_simple_spinner_dropdown_item);
+            typecompadapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+            typeCompany.setAdapter(typecompadapter);
+
+            typeCompany.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    switch (i) {
+                        case 0:
+                            stypeCompany = "C1";
+                            break;
+                        case 1:
+                            stypeCompany = "C2";
+                            break;
+                    }
 
 
-        typecompadapter = ArrayAdapter.createFromResource(this,R.array.company,R.layout.support_simple_spinner_dropdown_item);
-        typecompadapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        typeCompany.setAdapter(typecompadapter);
-
-        typeCompany.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                switch (i)
-                {
-                    case 0:
-                        stypeCompany="C1";
-                        break;
-                    case 1:
-                        stypeCompany="C2";
-                        break;
                 }
 
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
 
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+                }
+            });
+        } else {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("No Internet Connection...")
+                    .setMessage("Click Here to set Active connection")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    })
+                    .setIcon(R.drawable.error)
+                    .show();
+        }
 
     }
 
@@ -96,22 +119,25 @@ public class Bus1Act extends AppCompatActivity {
         sYearCompany = YearCompany.getText().toString().trim();
         snoEmployee = noEmployee.getText().toString().trim();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("file").child("Business").child(filestr).child("Person Contacted").setValue(sname);
-        databaseReference.child("file").child("Business").child(filestr).child("Designation").setValue(sdesig);
-        databaseReference.child("file").child("Business").child(filestr).child("Contact No.").setValue(scontact);
-        databaseReference.child("file").child("Business").child(filestr).child("Office Telephone No.").setValue(soffTele);
-        databaseReference.child("file").child("Business").child(filestr).child("Nature Of Business").setValue(sbussNature);
-        databaseReference.child("file").child("Business").child(filestr).child("No. of Years of Company").setValue(sYearCompany);
-        databaseReference.child("file").child("Business").child(filestr).child("No. of Employees").setValue(snoEmployee);
-        databaseReference.child("file").child("Business").child(filestr).child("Type of Company").setValue(stypeCompany);
+//        databaseReference = FirebaseDatabase.getInstance().getReference();
+//        databaseReference.child("file").child("Business").child(filestr).child("Person Contacted").setValue(sname);
+//        databaseReference.child("file").child("Business").child(filestr).child("Designation").setValue(sdesig);
+//        databaseReference.child("file").child("Business").child(filestr).child("Contact No.").setValue(scontact);
+//        databaseReference.child("file").child("Business").child(filestr).child("Office Telephone No.").setValue(soffTele);
+//        databaseReference.child("file").child("Business").child(filestr).child("Nature Of Business").setValue(sbussNature);
+//        databaseReference.child("file").child("Business").child(filestr).child("No. of Years of Company").setValue(sYearCompany);
+//        databaseReference.child("file").child("Business").child(filestr).child("No. of Employees").setValue(snoEmployee);
+//        databaseReference.child("file").child("Business").child(filestr).child("Type of Company").setValue(stypeCompany);
 
 
 
         Intent intent = new Intent(Bus1Act.this, LocationPhoto.class);
         intent.putExtra("file",filestr);
         startActivity(intent);
+    }
 
-
+    public boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }

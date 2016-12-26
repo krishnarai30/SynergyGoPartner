@@ -1,6 +1,11 @@
 package sd_dtu.synergygopartner;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -186,9 +191,10 @@ public class Res1Act extends AppCompatActivity {
         sspouseEmp=spouseEmp.getText().toString().trim();
 
 
+        if(isNetworkAvailable(getApplicationContext())) {
 
 
-        databaseReference= FirebaseDatabase.getInstance().getReference();
+//        databaseReference= FirebaseDatabase.getInstance().getReference();
 //        databaseReference.child("file").child("Residence").child(filestr).child("Name of Person Contacted").setValue(sname);
 //        databaseReference.child("file").child("Residence").child(filestr).child("Residential Status").setValue(sresidence);
 //        databaseReference.child("file").child("Residence").child(filestr).child("Marital Status").setValue(smaritalStatus);
@@ -200,13 +206,30 @@ public class Res1Act extends AppCompatActivity {
 //        databaseReference.child("file").child("Residence").child(filestr).child("Locality").setValue(slocality);
 
 
+            Intent intent = new Intent(Res1Act.this, SerRes2Act.class);
+            intent.putExtra("file", filestr);
+            startActivity(intent);
+        } else {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("No Internet Connection...")
+                    .setMessage("Click Here to set Active connection")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    })
+                    .setIcon(R.drawable.error)
+                    .show();
+        }
+    }
 
-
-
-
-
-        Intent intent=new Intent(Res1Act.this,SerRes2Act.class);
-        intent.putExtra("file",filestr);
-        startActivity(intent);
+    public boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }
