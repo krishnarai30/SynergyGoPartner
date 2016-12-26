@@ -9,6 +9,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Off1Act">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -149,8 +157,11 @@
         android:layout_height="wrap_content"
         android:text="Next"
         android:id="@+id/nxtso1btn"
+        android:layout_gravity="center"
         android:layout_below="@+id/textView35"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="42dp"
         android:onClick="onClickNextso1" />
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

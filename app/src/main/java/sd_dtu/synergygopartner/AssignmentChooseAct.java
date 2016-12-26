@@ -1,8 +1,12 @@
 package sd_dtu.synergygopartner;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,53 +48,76 @@ public class AssignmentChooseAct extends AppCompatActivity {
        // fileslv=(ListView)findViewById(R.id.agentlv);
 
 
-       final ProgressDialog progressDialog=new ProgressDialog(this);
-        progressDialog.setMessage("Wait...");
-        progressDialog.show();
-        progressDialog.setCancelable(true);
+        if(isNetworkAvailable(getApplicationContext())) {
+
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("Wait...");
+            progressDialog.show();
+            progressDialog.setCancelable(true);
 
 
-        mDatabasechecked=FirebaseDatabase.getInstance().getReference();
-        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
-        //String AgentID= prefs.getString("AgentID","");
-        final String AgentID = getIntent().getStringExtra("Agent");
-        mDatabasechecked.child("file").child(AgentID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                int i=0;
-                for (DataSnapshot file : dataSnapshot.getChildren()) {
-                    Log.i("file", file.getKey());
-                    fi.add(file.getKey());
-                    String name = file.child("Applicant's name").getValue().toString();
-                    String address = file.child("Address").getValue().toString();
-                    String addtype = file.child("Address Type").getValue().toString();
-                    String cprimary = file.child("Contact Primary").getValue().toString();
-                    String sprimary = file.child("Contact Secondary").getValue().toString();
-                    String fileno = file.child("File").getValue().toString();
-                    String landmark = file.child("Landmark").getValue().toString();
+            mDatabasechecked = FirebaseDatabase.getInstance().getReference();
+            SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+            //String AgentID= prefs.getString("AgentID","");
+            final String AgentID = getIntent().getStringExtra("Agent");
+            mDatabasechecked.child("file").child(AgentID).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int i = 0;
+                    for (DataSnapshot file : dataSnapshot.getChildren()) {
+                        Log.i("file", file.getKey());
+                        fi.add(file.getKey());
+                        String name = file.child("Applicant's name").getValue().toString();
+                        String address = file.child("Address").getValue().toString();
+                        String addtype = file.child("Address Type").getValue().toString();
+                        String cprimary = file.child("Contact Primary").getValue().toString();
+                        String sprimary = file.child("Contact Secondary").getValue().toString();
+                        String fileno = file.child("File").getValue().toString();
+                        String landmark = file.child("Landmark").getValue().toString();
 
-                    CardData cardData = new CardData(name, fileno, address, addtype, landmark, cprimary, sprimary, AgentID, fi.get(i));
-                    list.add(cardData);
-                    i++;
+                        CardData cardData = new CardData(name, fileno, address, addtype, landmark, cprimary, sprimary, AgentID, fi.get(i));
+                        list.add(cardData);
+                        i++;
+                    }
+                    layoutManager = new LinearLayoutManager(getApplicationContext());
+                    recyclerView.setLayoutManager(layoutManager);
+                    recyclerView.setHasFixedSize(true);
+                    adapter = new RecyclerCardAdapter(getApplicationContext(), list);
+                    recyclerView.setAdapter(adapter);
+                    //ArrayAdapter arrayAdapter = new ArrayAdapter(AssignmentChooseAct.this, android.R.layout.simple_list_item_1,fi);
+
+                    //fileslv.setAdapter(arrayAdapter);
+
+                    progressDialog.dismiss();
+
                 }
-                layoutManager = new LinearLayoutManager(getApplicationContext());
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setHasFixedSize(true);
-                adapter = new RecyclerCardAdapter(getApplicationContext(), list);
-                recyclerView.setAdapter(adapter);
-                //ArrayAdapter arrayAdapter = new ArrayAdapter(AssignmentChooseAct.this, android.R.layout.simple_list_item_1,fi);
 
-                //fileslv.setAdapter(arrayAdapter);
+                @Override
+                public void onCancelled(DatabaseError firebaseError) {
+                    Toast.makeText(getApplicationContext(), "Unable to contact the server", Toast.LENGTH_LONG).show();
+                }
+            });
 
-                progressDialog.dismiss();
 
-            }
+        } else {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("No Internet Connection...")
+                    .setMessage("Click Here to set Active connection")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    })
+                    .setIcon(R.drawable.error)
+                    .show();
+        }
 
-            @Override
-            public void onCancelled(DatabaseError firebaseError) {
-                Toast.makeText(getApplicationContext(),"Unable to contact the server",Toast.LENGTH_LONG).show();
-            }
-        });
+
 
 
 //        fileslv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -103,5 +130,10 @@ public class AssignmentChooseAct extends AppCompatActivity {
 //                startActivity(intent);
 //            }
 //        });
+    }
+
+    public boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }

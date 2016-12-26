@@ -1,7 +1,12 @@
 package sd_dtu.synergygopartner;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -87,7 +92,9 @@ public class SerRes2Act extends AppCompatActivity {
         spoliticalInflu=politicalInflu.getText().toString().trim();
         sotherRemarks=otherRemarks.getText().toString().trim();
 
-        databaseReference= FirebaseDatabase.getInstance().getReference();
+        if(isNetworkAvailable(getApplicationContext())) {
+
+//        databaseReference= FirebaseDatabase.getInstance().getReference();
 //        databaseReference.child("file").child("Residence").child(filestr).child("Vehicle Seen").setValue(svehicle);
 //        databaseReference.child("file").child("Residence").child(filestr).child("Registeration No").setValue(sregistration);
 //        databaseReference.child("file").child("Residence").child(filestr).child("Carpet Area").setValue(scarpetArea);
@@ -95,11 +102,30 @@ public class SerRes2Act extends AppCompatActivity {
 //        databaseReference.child("file").child("Residence").child(filestr).child("Other Remarks").setValue(sotherRemarks);
 
 
+            Intent intent2 = new Intent(SerRes2Act.this, LocationPhoto.class);
+            intent2.putExtra("file", filestr);
+            startActivity(intent2);
+        } else {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("No Internet Connection...")
+                    .setMessage("Click Here to set Active connection")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    })
+                    .setIcon(R.drawable.error)
+                    .show();
+        }
+    }
 
-
-
-        Intent intent2=new Intent(SerRes2Act.this,LocationPhoto.class);
-        intent2.putExtra("file",filestr);
-        startActivity(intent2);
+    public boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }

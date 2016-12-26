@@ -1,6 +1,11 @@
 package sd_dtu.synergygopartner;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -155,20 +160,40 @@ public class Off2Act extends AppCompatActivity {
         scompanyNature=companyNature.getText().toString().trim();
         sremarks=remarks.getText().toString().trim();
 
+        if(isNetworkAvailable(getApplicationContext())) {
 
-        databaseReference= FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("file").child("Office").child(filestr).child("Nature of Companies Business").setValue(scompanyNature);
-        databaseReference.child("file").child("Office").child(filestr).child("Type of Job").setValue(sjobType);
-        databaseReference.child("file").child("Office").child(filestr).child("Working in Organisation as").setValue(sworkOrg);
-        databaseReference.child("file").child("Office").child(filestr).child("Job Transferable").setValue(sjobTransfer);
-        databaseReference.child("file").child("Office").child(filestr).child("Other Remarks").setValue(sremarks);
-
-
-
+//        databaseReference= FirebaseDatabase.getInstance().getReference();
+//        databaseReference.child("file").child("Office").child(filestr).child("Nature of Companies Business").setValue(scompanyNature);
+//        databaseReference.child("file").child("Office").child(filestr).child("Type of Job").setValue(sjobType);
+//        databaseReference.child("file").child("Office").child(filestr).child("Working in Organisation as").setValue(sworkOrg);
+//        databaseReference.child("file").child("Office").child(filestr).child("Job Transferable").setValue(sjobTransfer);
+//        databaseReference.child("file").child("Office").child(filestr).child("Other Remarks").setValue(sremarks);
 
 
-        Intent intent=new Intent(Off2Act.this,LocationPhoto.class);
-        intent.putExtra("file",filestr);
-        startActivity(intent);
+            Intent intent = new Intent(Off2Act.this, LocationPhoto.class);
+            intent.putExtra("file", filestr);
+            startActivity(intent);
+        } else {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("No Internet Connection...")
+                    .setMessage("Click Here to set Active connection")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    })
+                    .setIcon(R.drawable.error)
+                    .show();
+        }
+    }
+
+    public boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }
