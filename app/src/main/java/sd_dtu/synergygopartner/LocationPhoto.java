@@ -1,5 +1,7 @@
 package sd_dtu.synergygopartner;
 
+import android.*;
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,7 +15,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -68,55 +72,70 @@ public class LocationPhoto extends Activity implements LocationListener {
         dialog.show();
         dialog.setMessage("Getting Coordinates");
 
+
+
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-        if (locationManager
-                .isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED &&
-                    ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                            != PackageManager.PERMISSION_GRANTED) {
-
-
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
-                        100, this);
-
+        if(ContextCompat.checkSelfPermission(LocationPhoto.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                Log.d("loc","Got the location");
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,100,LocationPhoto.this);
+                dialog.dismiss();
             }
-
-        }  if (locationManager
-                .isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            locationManager.requestLocationUpdates(
-                    LocationManager.NETWORK_PROVIDER,10000,100 , this);
+            else {
+                Toast.makeText(getApplicationContext(),"Enable the location",Toast.LENGTH_LONG).show();
+            }
         }
-        else {
-            dialog.dismiss();
 
-            AlertDialog.Builder builder =
-                    new AlertDialog.Builder(this);
-            final String action = Settings.ACTION_LOCATION_SOURCE_SETTINGS;
-            final String message = "Enable either GPS or any other location"
-                    + " service to find current location.  Click OK to go to"
-                    + " location services settings to let you do so.";
-            builder.setTitle("Enable Location");
+//
+//        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+//
+//        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+//            if (ActivityCompat.checkSelfPermission(Locationphoto.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+//                    != PackageManager.PERMISSION_GRANTED &&
+//                    ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+//                            == PackageManager.PERMISSION_GRANTED) {
+//
+//
+//                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
+//                        0, this);
+//
+//            }
+//
+//        }  if (locationManager
+//                .isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+//            locationManager.requestLocationUpdates(
+//                    LocationManager.NETWORK_PROVIDER,10000,100 , this);
+//        }
+//        else {
+//            dialog.dismiss();
 
-            builder.setMessage(message)
-                    .setPositiveButton("OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface d, int id) {
-                                    startActivity(new Intent(action));
-                                    d.dismiss();
-                                }
-                            })
-                    .setNegativeButton("Cancel",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface d, int id) {
-                                    d.cancel();
-                                }
-                            });
-            builder.create().show();
+//            AlertDialog.Builder builder =
+//                    new AlertDialog.Builder(this);
+//            final String action = Settings.ACTION_LOCATION_SOURCE_SETTINGS;
+//            final String message = "Enable either GPS or any other location"
+//                    + " service to find current location.  Click OK to go to"
+//                    + " location services settings to let you do so.";
+//            builder.setTitle("Enable Location");
+//
+//            builder.setMessage(message)
+//                    .setPositiveButton("OK",
+//                            new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface d, int id) {
+//                                    startActivity(new Intent(action));
+//                                    d.dismiss();
+//                                }
+//                            })
+//                    .setNegativeButton("Cancel",
+//                            new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface d, int id) {
+//                                    d.cancel();
+//                                }
+//                            });
+//            builder.create().show();
 
-            Toast.makeText(getApplicationContext(), "Enable Location", Toast.LENGTH_LONG).show();
-        }
+//            Toast.makeText(getApplicationContext(), "Enable Location", Toast.LENGTH_LONG).show();
+//        }
 
 
     }

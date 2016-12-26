@@ -40,32 +40,47 @@ public class DetailsAct extends AppCompatActivity {
 
 
 
-        mDatabasechecked = FirebaseDatabase.getInstance().getReference();
-       final String str1=getIntent().getStringExtra("choice");
-        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
-        String AgentID= prefs.getString("AgentID","");
-        mDatabasechecked.child("file").child(AgentID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+//        mDatabasechecked = FirebaseDatabase.getInstance().getReference();
 
-                i=0;
-                for (DataSnapshot file : dataSnapshot.getChildren()) {
-                    Log.i("file", file.getKey());
-                    si.add(file.getKey());
-                    if(si.get(i).equals(str1)){
+//        uniid = getIntent().getStringExtra("uniid");
 
-                        addstr = dataSnapshot.child(str1).child("Address").getValue(String.class);
-                        agentidstr = dataSnapshot.child(str1).child("Agent ID").getValue(String.class);
-                        filestr = dataSnapshot.child("File").getValue(String.class);
-                        applicantnamestr = dataSnapshot.child(str1).child("Applicant's name").getValue(String.class);
-                        contactpstr = dataSnapshot.child(str1).child("Contact Primary").getValue(String.class);
-                        contactsstr = dataSnapshot.child(str1).child("Contact Secondary").getValue(String.class);
-                        landmarkstr = dataSnapshot.child(str1).child("Landmark").getValue(String.class);
-                        addtypestr = dataSnapshot.child(str1).child("Address Type").getValue(String.class);
+     // final String str1=getIntent().getStringExtra("choice");
+       // SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+//        String AgentID= getIntent().getStringExtra("agentid");
+//        mDatabasechecked.child("file").child(AgentID).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                i=0;
+//                for (DataSnapshot file : dataSnapshot.getChildren()) {
+//                    Log.i("file", file.getKey());
+//                    si.add(file.getKey());
+//                    if(si.get(i).equals(str1)){
+//
+//                        addstr = dataSnapshot.child(str1).child("Address").getValue(String.class);
+//                        agentidstr = dataSnapshot.child(str1).child("Agent ID").getValue(String.class);
+//                        filestr = dataSnapshot.child("File").getValue(String.class);
+//                        applicantnamestr = dataSnapshot.child(str1).child("Applicant's name").getValue(String.class);
+//                        contactpstr = dataSnapshot.child(str1).child("Contact Primary").getValue(String.class);
+//                        contactsstr = dataSnapshot.child(str1).child("Contact Secondary").getValue(String.class);
+//                        landmarkstr = dataSnapshot.child(str1).child("Landmark").getValue(String.class);
+//                        addtypestr = dataSnapshot.child(str1).child("Address Type").getValue(String.class);
+//
+//                    }
+//                    i++;
+//                }
 
-                    }
-                    i++;
-                }
+        addtypestr = getIntent().getStringExtra("addtype");
+        addstr = getIntent().getStringExtra("address");
+        agentidstr = getIntent().getStringExtra("agentid");
+        filestr = getIntent().getStringExtra("fileno");
+        applicantnamestr = getIntent().getStringExtra("name");
+        contactpstr = getIntent().getStringExtra("pcontact");
+        contactsstr = getIntent().getStringExtra("scontact");
+        landmarkstr = getIntent().getStringExtra("landmark");
+
+
+
 
                     addtv.setText(addstr);
                     agenttv.setText(agentidstr);
@@ -75,35 +90,32 @@ public class DetailsAct extends AppCompatActivity {
                     contactstv.setText(contactsstr);
                     cantactptv.setText(contactpstr);
                     appnametv.setText(applicantnamestr);
-            }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(addtypestr.equals("Residence")){
+                if(addtypestr.equals("RESIDENTIAL")){
                     Intent intent2=new Intent(DetailsAct.this,Res1Act.class);
                     intent2.putExtra("file",filestr);
                     startActivity(intent2);
                 }
-                if(addtypestr.equals("Office")){
+                if(addtypestr.equals("OFFICE")){
                     Intent intent2=new Intent(DetailsAct.this,Off1Act.class);
                     intent2.putExtra("file",filestr);
                     startActivity(intent2);
                 }
-                if(addtypestr.equals(" Business")){
+                if(addtypestr.equals(" BUSINESS")){
                     Intent intent2=new Intent(DetailsAct.this,Bus1Act.class);
                     intent2.putExtra("file",filestr);
                     startActivity(intent2);
                 }
             }
         });
+            }
 
-        }
+                //@Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
 }
