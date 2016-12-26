@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="265dp"
+    android:padding="8dp"
+    >
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#fff"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name of the person"
+                android:id="@+id/name"
+                android:textSize="35dp"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:layout_marginBottom="5dp"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:background="@color/greendark"
+                >
+            </View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:paddingLeft="7dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:text="Agent ID"
+                />
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingRight="7dp"
+                    android:text="agentidhere"
+                    android:textColor="#000"
+                    android:id="@+id/age"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+               <TextView
+                   android:padding="7dp"
+                   android:textColor="#246a99"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textSize="15dp"
+                   android:layout_weight="0.1"
+                   android:text="File Number    :"
+                   />
+                <TextView
+                    android:textColor="#246a99"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/file_no"
+                    android:layout_weight="1"
+                    android:textSize="15dp"
+                    android:text="file"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/uniid"
+                    android:layout_weight="1"
+                    android:textColor="#fff"
+                    />
+            </LinearLayout>
+            <TextView
+                android:textColor="#656c27"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Address type"
+                android:id="@+id/add_type"
+                android:textStyle="bold"
+                android:paddingTop="7dp"
+                android:paddingLeft="7dp"
+                android:textSize="20dp"
+                />
+            <TextView
+                android:textColor="#000"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ADDRESS"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:id="@+id/address"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:paddingLeft="7dp"
+                    android:paddingRight="7dp"
+                    android:paddingBottom="7dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Landmark      :"
+                    android:textColor="#91483a"
+
+                    />
+                <TextView
+                    android:textColor="#91483a"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/land_mark"
+                    android:text="landmark place"
+                    />
+            </LinearLayout>
+            <TextView
+                android:textColor="#778687"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/p_contact"
+                android:text="primary contact"
+                android:paddingLeft="7dp"
+                android:paddingTop="7dp"
+                />
+            <TextView
+                android:textColor="#778687"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/s_contact"
+                android:text="secondary contact"
+                android:paddingLeft="7dp"
+                />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

@@ -87,14 +87,12 @@ public class SerRes2Act extends AppCompatActivity {
         spoliticalInflu=politicalInflu.getText().toString().trim();
         sotherRemarks=otherRemarks.getText().toString().trim();
 
-
-
         databaseReference= FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("file").child("Residence").child(filestr).child("Vehicle Seen").setValue(svehicle);
-        databaseReference.child("file").child("Residence").child(filestr).child("Registeration No").setValue(sregistration);
-        databaseReference.child("file").child("Residence").child(filestr).child("Carpet Area").setValue(scarpetArea);
-        databaseReference.child("file").child("Residence").child(filestr).child("Political Influence").setValue(spoliticalInflu);
-        databaseReference.child("file").child("Residence").child(filestr).child("Other Remarks").setValue(sotherRemarks);
+//        databaseReference.child("file").child("Residence").child(filestr).child("Vehicle Seen").setValue(svehicle);
+//        databaseReference.child("file").child("Residence").child(filestr).child("Registeration No").setValue(sregistration);
+//        databaseReference.child("file").child("Residence").child(filestr).child("Carpet Area").setValue(scarpetArea);
+//        databaseReference.child("file").child("Residence").child(filestr).child("Political Influence").setValue(spoliticalInflu);
+//        databaseReference.child("file").child("Residence").child(filestr).child("Other Remarks").setValue(sotherRemarks);
 
 
 

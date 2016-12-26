@@ -6,12 +6,15 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,9 +25,13 @@ import java.util.ArrayList;
 
 public class AssignmentChooseAct extends AppCompatActivity {
 
-    ListView fileslv;
+    //ListView fileslv;
+    RecyclerView.LayoutManager layoutManager;
+    RecyclerView.Adapter adapter;
+    RecyclerView recyclerView;
     DatabaseReference mDatabasechecked;
     ArrayList<String> fi = new ArrayList<String>();
+    ArrayList<CardData> list = new ArrayList<CardData>();
 
 
     @Override
@@ -32,7 +39,9 @@ public class AssignmentChooseAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assignment_choose);
 
-        fileslv=(ListView)findViewById(R.id.agentlv);
+        recyclerView = (RecyclerView)findViewById(R.id.recyc_view);
+
+       // fileslv=(ListView)findViewById(R.id.agentlv);
 
 
        final ProgressDialog progressDialog=new ProgressDialog(this);
@@ -43,17 +52,35 @@ public class AssignmentChooseAct extends AppCompatActivity {
 
         mDatabasechecked=FirebaseDatabase.getInstance().getReference();
         SharedPreferences prefs = getPreferences(MODE_PRIVATE);
-        String AgentID= prefs.getString("AgentID","");
+        //String AgentID= prefs.getString("AgentID","");
+        final String AgentID = getIntent().getStringExtra("Agent");
         mDatabasechecked.child("file").child(AgentID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                int i=0;
                 for (DataSnapshot file : dataSnapshot.getChildren()) {
                     Log.i("file", file.getKey());
                     fi.add(file.getKey());
-                }
-                ArrayAdapter arrayAdapter = new ArrayAdapter(AssignmentChooseAct.this, android.R.layout.simple_list_item_1,fi);
+                    String name = file.child("Applicant's name").getValue().toString();
+                    String address = file.child("Address").getValue().toString();
+                    String addtype = file.child("Address Type").getValue().toString();
+                    String cprimary = file.child("Contact Primary").getValue().toString();
+                    String sprimary = file.child("Contact Secondary").getValue().toString();
+                    String fileno = file.child("File").getValue().toString();
+                    String landmark = file.child("Landmark").getValue().toString();
 
-                fileslv.setAdapter(arrayAdapter);
+                    CardData cardData = new CardData(name, fileno, address, addtype, landmark, cprimary, sprimary, AgentID, fi.get(i));
+                    list.add(cardData);
+                    i++;
+                }
+                layoutManager = new LinearLayoutManager(getApplicationContext());
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setHasFixedSize(true);
+                adapter = new RecyclerCardAdapter(getApplicationContext(), list);
+                recyclerView.setAdapter(adapter);
+                //ArrayAdapter arrayAdapter = new ArrayAdapter(AssignmentChooseAct.this, android.R.layout.simple_list_item_1,fi);
+
+                //fileslv.setAdapter(arrayAdapter);
 
                 progressDialog.dismiss();
 
@@ -61,20 +88,20 @@ public class AssignmentChooseAct extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError firebaseError) {
-
+                Toast.makeText(getApplicationContext(),"Unable to contact the server",Toast.LENGTH_LONG).show();
             }
         });
 
 
-        fileslv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-              Intent intent=new Intent(AssignmentChooseAct.this,DetailsAct.class);
-              String option= fi.get(i);
-                intent.putExtra("choice",option);
-                startActivity(intent);
-            }
-        });
+//        fileslv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//              Intent intent=new Intent(AssignmentChooseAct.this,DetailsAct.class);
+//              String option= fi.get(i);
+//                intent.putExtra("choice",option);
+//                startActivity(intent);
+//            }
+//        });
     }
 }

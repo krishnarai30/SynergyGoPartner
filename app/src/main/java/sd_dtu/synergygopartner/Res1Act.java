@@ -189,15 +189,15 @@ public class Res1Act extends AppCompatActivity {
 
 
         databaseReference= FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("file").child("Residence").child(filestr).child("Name of Person Contacted").setValue(sname);
-        databaseReference.child("file").child("Residence").child(filestr).child("Residential Status").setValue(sresidence);
-        databaseReference.child("file").child("Residence").child(filestr).child("Marital Status").setValue(smaritalStatus);
-        databaseReference.child("file").child("Residence").child(filestr).child("No Of Family Members").setValue(snoFamilyMem);
-        databaseReference.child("file").child("Residence").child(filestr).child("Working Members").setValue(sworkingMem);
-        databaseReference.child("file").child("Residence").child(filestr).child("Dependent Members").setValue(sdependMem);
-        databaseReference.child("file").child("Residence").child(filestr).child("Children").setValue(schildren);
-        databaseReference.child("file").child("Residence").child(filestr).child("Spouse Emp").setValue(sspouseEmp);
-        databaseReference.child("file").child("Residence").child(filestr).child("Locality").setValue(slocality);
+//        databaseReference.child("file").child("Residence").child(filestr).child("Name of Person Contacted").setValue(sname);
+//        databaseReference.child("file").child("Residence").child(filestr).child("Residential Status").setValue(sresidence);
+//        databaseReference.child("file").child("Residence").child(filestr).child("Marital Status").setValue(smaritalStatus);
+//        databaseReference.child("file").child("Residence").child(filestr).child("No Of Family Members").setValue(snoFamilyMem);
+//        databaseReference.child("file").child("Residence").child(filestr).child("Working Members").setValue(sworkingMem);
+//        databaseReference.child("file").child("Residence").child(filestr).child("Dependent Members").setValue(sdependMem);
+//        databaseReference.child("file").child("Residence").child(filestr).child("Children").setValue(schildren);
+//        databaseReference.child("file").child("Residence").child(filestr).child("Spouse Emp").setValue(sspouseEmp);
+//        databaseReference.child("file").child("Residence").child(filestr).child("Locality").setValue(slocality);
 
 
 

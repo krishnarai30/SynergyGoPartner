@@ -16,6 +16,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class LoginAct extends AppCompatActivity {
@@ -40,29 +45,66 @@ public class LoginAct extends AppCompatActivity {
         AgentIDin=agentId.getText().toString();
         PassIn=pass.getText().toString();
 
+        Log.d("Taken","Values entered");
 
-        mAuth=FirebaseAuth.getInstance();
 
-        mAuth.signInWithEmailAndPassword(AgentIDin, PassIn)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+        DatabaseReference mdatabaseref = FirebaseDatabase.getInstance().getReference();
 
-                        final String PREFS_NAME = "MyPrefsFile";
-                        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-                        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-                        editor.putString("AgentID",AgentIDin);
-                        editor.apply();
-                        Intent intent=new Intent(LoginAct.this,AssignmentChooseAct.class);
-                        startActivity(intent);
+        mdatabaseref.child("AgentID").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(LoginAct.this, "Login Failed check credentials",
-                                    Toast.LENGTH_SHORT).show();
+                Log.d("Entered","IN HERE");
+                for(DataSnapshot file : dataSnapshot.getChildren()) {
+                    if(file.getKey().toString().equals(AgentIDin))
+                    {
+                        if (file.child("password").getValue().toString().equals(PassIn))
+                        {
+                            Log.d("CHECKED", "MATCHED!");
+                            Intent intent = new Intent(LoginAct.this, AssignmentChooseAct.class);
+                            intent.putExtra("Agent", AgentIDin);
+                            startActivity(intent);
                         }
-
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(), "Password not matched",Toast.LENGTH_LONG).show();
+                        }
                     }
-                });
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(),"Agent ID not registered!",Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(),"The Error is still here",Toast.LENGTH_LONG).show();
+            }
+        });
+
+//        mAuth=FirebaseAuth.getInstance();
+//
+//        mAuth.signInWithEmailAndPassword(AgentIDin, PassIn)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//
+//                        final String PREFS_NAME = "MyPrefsFile";
+//                        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+//                        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+//                        editor.putString("AgentID",AgentIDin);
+//                        editor.apply();
+//                        Intent intent=new Intent(LoginAct.this,AssignmentChooseAct.class);
+//                        startActivity(intent);
+//
+//                        if (!task.isSuccessful()) {
+//                            Toast.makeText(LoginAct.this, "Login Failed check credentials",
+//                                    Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                    }
+//                });
 
 
 
