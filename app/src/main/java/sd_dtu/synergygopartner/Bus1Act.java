@@ -8,11 +8,13 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,7 +27,7 @@ public class Bus1Act extends AppCompatActivity {
     EditText name,desig,contact,offTele,bussNature,YearCompany,noEmployee;
     String sname,sdesig,scontact,soffTele,sbussNature,sYearCompany,snoEmployee;
     Spinner typeCompany;
-    String filestr;
+    String filestr,agenti;
     String stypeCompany;
     ArrayAdapter<CharSequence> typecompadapter;
     DatabaseReference databaseReference;
@@ -36,6 +38,8 @@ public class Bus1Act extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_1);
+
+        agenti = getIntent().getStringExtra("agent");
 
         name= (EditText)findViewById(R.id.nameeditText);
         desig= (EditText)findViewById(R.id.designationeditText);
@@ -119,21 +123,30 @@ public class Bus1Act extends AppCompatActivity {
         sYearCompany = YearCompany.getText().toString().trim();
         snoEmployee = noEmployee.getText().toString().trim();
 
-//        databaseReference = FirebaseDatabase.getInstance().getReference();
-//        databaseReference.child("file").child("Business").child(filestr).child("Person Contacted").setValue(sname);
-//        databaseReference.child("file").child("Business").child(filestr).child("Designation").setValue(sdesig);
-//        databaseReference.child("file").child("Business").child(filestr).child("Contact No.").setValue(scontact);
-//        databaseReference.child("file").child("Business").child(filestr).child("Office Telephone No.").setValue(soffTele);
-//        databaseReference.child("file").child("Business").child(filestr).child("Nature Of Business").setValue(sbussNature);
-//        databaseReference.child("file").child("Business").child(filestr).child("No. of Years of Company").setValue(sYearCompany);
-//        databaseReference.child("file").child("Business").child(filestr).child("No. of Employees").setValue(snoEmployee);
-//        databaseReference.child("file").child("Business").child(filestr).child("Type of Company").setValue(stypeCompany);
+
+        if(TextUtils.isEmpty(sname)||TextUtils.isEmpty(sdesig)||TextUtils.isEmpty(soffTele)||TextUtils.isEmpty(sbussNature)
+                ||TextUtils.isEmpty(sYearCompany)||TextUtils.isEmpty(snoEmployee))
+        {
+            Toast.makeText(getApplicationContext(),"Fill all Fields !",Toast.LENGTH_LONG).show();
+        } else {
+
+            databaseReference = FirebaseDatabase.getInstance().getReference();
+            databaseReference.child("Data").child("Business").child(filestr).child("Person Contacted").setValue(sname);
+            databaseReference.child("Data").child("Business").child(filestr).child("Designation").setValue(sdesig);
+            databaseReference.child("Data").child("Business").child(filestr).child("Contact No").setValue(scontact);
+            databaseReference.child("Data").child("Business").child(filestr).child("Office Telephone No").setValue(soffTele);
+            databaseReference.child("Data").child("Business").child(filestr).child("Nature Of Business").setValue(sbussNature);
+            databaseReference.child("Data").child("Business").child(filestr).child("No of Years of Company").setValue(sYearCompany);
+            databaseReference.child("Data").child("Business").child(filestr).child("No of Employees").setValue(snoEmployee);
+            databaseReference.child("Data").child("Business").child(filestr).child("Type of Company").setValue(stypeCompany);
 
 
-
-        Intent intent = new Intent(Bus1Act.this, LocationPhoto.class);
-        intent.putExtra("file",filestr);
-        startActivity(intent);
+            Intent intent = new Intent(Bus1Act.this, LocationPhoto.class);
+            intent.putExtra("file", filestr);
+            intent.putExtra("agent", agenti);
+            intent.putExtra("type","Business");
+            startActivity(intent);
+        }
     }
 
     public boolean isNetworkAvailable(final Context context) {

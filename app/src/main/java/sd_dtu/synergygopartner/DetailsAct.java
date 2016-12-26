@@ -69,16 +69,19 @@ public class DetailsAct extends AppCompatActivity {
                 if(addtypestr.equals("RESIDENTIAL")){
                     Intent intent2=new Intent(DetailsAct.this,Res1Act.class);
                     intent2.putExtra("file",filestr);
+                    intent2.putExtra("agent",agentidstr);
                     startActivity(intent2);
                 }
                 if(addtypestr.equals("OFFICE")){
                     Intent intent2=new Intent(DetailsAct.this,Off1Act.class);
                     intent2.putExtra("file",filestr);
+                    intent2.putExtra("agent",agentidstr);
                     startActivity(intent2);
                 }
                 if(addtypestr.equals(" BUSINESS")){
                     Intent intent2=new Intent(DetailsAct.this,Bus1Act.class);
                     intent2.putExtra("file",filestr);
+                    intent2.putExtra("agent",agentidstr);
                     startActivity(intent2);
                 }
             }

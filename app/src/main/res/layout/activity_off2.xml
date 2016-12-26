@@ -9,6 +9,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Off2Act">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="1">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,6 +30,17 @@
         android:layout_toLeftOf="@+id/jobtypespinner"
         android:layout_toStartOf="@+id/jobtypespinner" />
 
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/CompanyNatureeditText"
+            android:layout_alignTop="@+id/textView39"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="0.04" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +53,7 @@
         android:layout_alignParentStart="true" />
 
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/jobtypespinner"
         android:layout_alignTop="@+id/textView40"
@@ -42,16 +61,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignLeft="@+id/CompanyNatureeditText"
         android:layout_alignStart="@+id/CompanyNatureeditText" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/CompanyNatureeditText"
-        android:layout_alignTop="@+id/textView39"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -65,9 +74,11 @@
         android:layout_marginTop="20dp" />
 
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/workingAsspinner"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
         android:layout_alignBottom="@+id/textView41"
         android:layout_alignRight="@+id/jobtypespinner"
         android:layout_alignEnd="@+id/jobtypespinner" />
@@ -83,14 +94,16 @@
         android:layout_alignParentStart="true" />
 
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/transferspinner"
+        android:layout_marginTop="20dp"
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/workingAsspinner"
         android:layout_alignStart="@+id/workingAsspinner" />
 
     <TextView
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -99,10 +112,10 @@
         android:layout_below="@+id/textView41"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="114dp" />
+        />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
@@ -115,9 +128,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Finish"
+        android:layout_gravity="center"
         android:id="@+id/finishsobtn"
         android:layout_below="@+id/OtherRemarkseditText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="57dp"
         android:onClick="onClickFinishso" />
+    </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

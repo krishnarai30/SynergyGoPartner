@@ -8,11 +8,13 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 public class Off2Act extends AppCompatActivity {
     EditText companyNature,remarks;
     String scompanyNature,sremarks,sjobType,sworkOrg,sjobTransfer;
-    String filestr;
+    String filestr,agentid;
     Spinner  jobType,workOrg,jobTransfer;
     ArrayAdapter<CharSequence> jobtypeadapter;
     ArrayAdapter<CharSequence> workorgadapter;
@@ -44,7 +46,7 @@ public class Off2Act extends AppCompatActivity {
 
 
 
-
+        agentid = getIntent().getStringExtra("agent");
 
         jobtypeadapter=ArrayAdapter.createFromResource(this,R.array.jobtype,R.layout.support_simple_spinner_dropdown_item);
         jobtypeadapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -160,35 +162,42 @@ public class Off2Act extends AppCompatActivity {
         scompanyNature=companyNature.getText().toString().trim();
         sremarks=remarks.getText().toString().trim();
 
-        if(isNetworkAvailable(getApplicationContext())) {
-
-//        databaseReference= FirebaseDatabase.getInstance().getReference();
-//        databaseReference.child("file").child("Office").child(filestr).child("Nature of Companies Business").setValue(scompanyNature);
-//        databaseReference.child("file").child("Office").child(filestr).child("Type of Job").setValue(sjobType);
-//        databaseReference.child("file").child("Office").child(filestr).child("Working in Organisation as").setValue(sworkOrg);
-//        databaseReference.child("file").child("Office").child(filestr).child("Job Transferable").setValue(sjobTransfer);
-//        databaseReference.child("file").child("Office").child(filestr).child("Other Remarks").setValue(sremarks);
-
-
-            Intent intent = new Intent(Off2Act.this, LocationPhoto.class);
-            intent.putExtra("file", filestr);
-            startActivity(intent);
+        if(TextUtils.isEmpty(scompanyNature)||TextUtils.isEmpty(sremarks)) {
+            Toast.makeText(getApplicationContext(),"Fields are Empty !!",Toast.LENGTH_LONG).show();
         } else {
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setTitle("No Internet Connection...")
-                    .setMessage("Click Here to set Active connection")
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                        }
-                    })
-                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // do nothing
-                        }
-                    })
-                    .setIcon(R.drawable.error)
-                    .show();
+
+            if (isNetworkAvailable(getApplicationContext())) {
+
+                databaseReference = FirebaseDatabase.getInstance().getReference();
+                databaseReference.child("Data").child("Office").child(filestr).child("Nature of Companies Business").setValue(scompanyNature);
+                databaseReference.child("Data").child("Office").child(filestr).child("Type of Job").setValue(sjobType);
+                databaseReference.child("Data").child("Office").child(filestr).child("Working in Organisation as").setValue(sworkOrg);
+                databaseReference.child("Data").child("Office").child(filestr).child("Job Transferable").setValue(sjobTransfer);
+                databaseReference.child("Data").child("Office").child(filestr).child("Other Remarks").setValue(sremarks);
+
+
+                Intent intent = new Intent(Off2Act.this, LocationPhoto.class);
+                intent.putExtra("file", filestr);
+                intent.putExtra("agent", agentid);
+                intent.putExtra("type","Office");
+                startActivity(intent);
+            } else {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setTitle("No Internet Connection...")
+                        .setMessage("Click Here to set Active connection")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(R.drawable.error)
+                        .show();
+            }
         }
     }
 

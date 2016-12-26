@@ -22,7 +22,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".AssignmentChooseAct" />
-        <activity android:name=".LoginAct" />
+        <activity android:name=".LoginAct"
+            android:noHistory="true"
+            />
         <activity android:name=".DetailsAct" />
         <activity android:name=".SerRes2Act" />
         <activity android:name=".LocationPhoto" />

@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -28,25 +30,30 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class LocationPhoto extends Activity {
 
     protected LocationManager locationManager;
     private double latitude = 0;
     private double longitude = 0;
-    TextView lat, lng;
+    TextView lat, lng,textView;
     Button refresh;
-    String fileno;
+    String fileno,agentid,Type;
     Button photo;
     ProgressDialog dialog;
 
+
     public static final int LOCATION_REQ_CODE = 100;
 
-    Button nbtn;
 
 
     @Override
@@ -55,18 +62,12 @@ public class LocationPhoto extends Activity {
         setContentView(R.layout.location_photo);
 
         fileno = getIntent().getStringExtra("file");
-
-
-        nbtn = (Button) findViewById(R.id.nbtn);
-        nbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        agentid = getIntent().getStringExtra("agent");
+        Type = getIntent().getStringExtra("type");
 
         photo = (Button) findViewById(R.id.pho);
 
+        textView = (TextView) findViewById(R.id.adres);
         lat = (TextView) findViewById(R.id.lat);
         lng = (TextView) findViewById(R.id.lng);
         refresh = (Button) findViewById(R.id.refresh);
@@ -171,6 +172,20 @@ public class LocationPhoto extends Activity {
         @Override
         public void onLocationChanged(Location location) {
 
+            Geocoder geocoder=new Geocoder(getApplicationContext(), Locale.getDefault());
+
+            try {
+                List<Address> addresses=geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+                Address address=addresses.get(0);
+                String useradd="";
+                for(int i=0;i<address.getMaxAddressLineIndex();i++)
+                    useradd=useradd+address.getAddressLine(i).toString()+"\n";
+                useradd=useradd+(address.getCountryName().toString());
+                textView.setText(useradd.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
            // dialog.show();
             latitude = location.getLatitude();
             longitude =location.getLongitude();
@@ -181,6 +196,29 @@ public class LocationPhoto extends Activity {
 
                 dialog.dismiss();
             }
+
+            if(isNetworkAvailable(getApplicationContext())){
+                DatabaseReference mref = FirebaseDatabase.getInstance().getReference();
+
+                mref.child("Data").child(Type).child(fileno).child("Location Found").setValue(textView.getText().toString());
+            } else {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
+                alertDialogBuilder.setTitle("No Internet Connection...")
+                        .setMessage("Click Here to set Active connection")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(R.drawable.error)
+                        .show();
+            }
+
         }
 
         @Override
@@ -237,8 +275,6 @@ public class LocationPhoto extends Activity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
-
         if(requestCode == 1 && resultCode == RESULT_OK && data!=null){
 
             Log.d("Image URI","in here");
@@ -251,12 +287,13 @@ public class LocationPhoto extends Activity {
 
             StorageReference storageRef = storage.getReferenceFromUrl("gs://synergy-go.appspot.com");
 
-            StorageReference photoRef = storageRef.child(fileno).child(selectedImage.getLastPathSegment());
+            StorageReference photoRef = storageRef.child(Type).child(fileno).child(selectedImage.getLastPathSegment());
             photoRef.putFile(selectedImage);
 
             Toast.makeText(this, "image uploaded", Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(LocationPhoto.this,AssignmentChooseAct.class);
+            intent.putExtra("Agent",agentid);
             startActivity(intent);
         }
         else {

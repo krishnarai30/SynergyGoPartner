@@ -136,4 +136,11 @@ public class AssignmentChooseAct extends AppCompatActivity {
         final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(AssignmentChooseAct.this,LoginAct.class);
+        startActivity(intent);
+    }
 }

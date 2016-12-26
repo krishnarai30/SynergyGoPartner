@@ -8,11 +8,13 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,7 +26,7 @@ public class Res1Act extends AppCompatActivity {
 
     EditText name,noFamilyMem,workingMem,dependMem,children,spouseEmp;
     String sname,snoFamilyMem,sworkingMem,sdependMem,schildren,sspouseEmp,sresidence,smaritalStatus,slocality;
-    String filestr;
+    String filestr,agentid;
     Spinner residence,maritalStatus,locality;
     ArrayAdapter<CharSequence> residenceadapter;
     ArrayAdapter<CharSequence> maritaladapter;
@@ -48,6 +50,7 @@ public class Res1Act extends AppCompatActivity {
         locality=(Spinner) findViewById(R.id.Localityspinner);
 
 
+        agentid = getIntent().getStringExtra("agent");
 
         databaseReference=FirebaseDatabase.getInstance().getReference();
 
@@ -191,24 +194,32 @@ public class Res1Act extends AppCompatActivity {
         sspouseEmp=spouseEmp.getText().toString().trim();
 
 
+
         if(isNetworkAvailable(getApplicationContext())) {
 
-
-//        databaseReference= FirebaseDatabase.getInstance().getReference();
-//        databaseReference.child("file").child("Residence").child(filestr).child("Name of Person Contacted").setValue(sname);
-//        databaseReference.child("file").child("Residence").child(filestr).child("Residential Status").setValue(sresidence);
-//        databaseReference.child("file").child("Residence").child(filestr).child("Marital Status").setValue(smaritalStatus);
-//        databaseReference.child("file").child("Residence").child(filestr).child("No Of Family Members").setValue(snoFamilyMem);
-//        databaseReference.child("file").child("Residence").child(filestr).child("Working Members").setValue(sworkingMem);
-//        databaseReference.child("file").child("Residence").child(filestr).child("Dependent Members").setValue(sdependMem);
-//        databaseReference.child("file").child("Residence").child(filestr).child("Children").setValue(schildren);
-//        databaseReference.child("file").child("Residence").child(filestr).child("Spouse Emp").setValue(sspouseEmp);
-//        databaseReference.child("file").child("Residence").child(filestr).child("Locality").setValue(slocality);
+            if(TextUtils.isEmpty(sname)||TextUtils.isEmpty(snoFamilyMem)||TextUtils.isEmpty(sworkingMem)||TextUtils.isEmpty(sdependMem)
+                    ||TextUtils.isEmpty(schildren)||TextUtils.isEmpty(sspouseEmp)) {
+                Toast.makeText(getApplicationContext(),"Please fill all FIELDS !",Toast.LENGTH_LONG).show();
+            } else {
 
 
-            Intent intent = new Intent(Res1Act.this, SerRes2Act.class);
-            intent.putExtra("file", filestr);
-            startActivity(intent);
+                databaseReference = FirebaseDatabase.getInstance().getReference();
+                databaseReference.child("Data").child("Residence").child(filestr).child("Name of Person Contacted").setValue(sname);
+                databaseReference.child("Data").child("Residence").child(filestr).child("Residential Status").setValue(sresidence);
+                databaseReference.child("Data").child("Residence").child(filestr).child("Marital Status").setValue(smaritalStatus);
+                databaseReference.child("Data").child("Residence").child(filestr).child("No Of Family Members").setValue(snoFamilyMem);
+                databaseReference.child("Data").child("Residence").child(filestr).child("Working Members").setValue(sworkingMem);
+                databaseReference.child("Data").child("Residence").child(filestr).child("Dependent Members").setValue(sdependMem);
+                databaseReference.child("Data").child("Residence").child(filestr).child("Children").setValue(schildren);
+                databaseReference.child("Data").child("Residence").child(filestr).child("Spouse Emp").setValue(sspouseEmp);
+                databaseReference.child("Data").child("Residence").child(filestr).child("Locality").setValue(slocality);
+
+
+                Intent intent = new Intent(Res1Act.this, SerRes2Act.class);
+                intent.putExtra("file", filestr);
+                intent.putExtra("agent", agentid);
+                startActivity(intent);
+            }
         } else {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("No Internet Connection...")
