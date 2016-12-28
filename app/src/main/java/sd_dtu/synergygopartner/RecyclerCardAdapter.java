@@ -2,6 +2,7 @@ package sd_dtu.synergygopartner;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import me.anwarshahriar.calligrapher.Calligrapher;
 
 /**
  * Created by mohitkumar on 25/12/16.
@@ -35,6 +38,20 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<RecyclerCardAdapte
     @Override
     public void onBindViewHolder(RecycViewHolder holder, int position) {
         CardData cardData = arrayList.get(position);
+
+        Typeface tf = Typeface.createFromAsset(context.getAssets(),"fonts/OpenSans-Semibold.ttf");
+
+        holder.textView1.setTypeface(tf);
+        holder.textView2.setTypeface(tf);
+        holder.textView3.setTypeface(tf);
+        holder.textView4.setTypeface(tf);
+        holder.textView5.setTypeface(tf);
+        holder.textView6.setTypeface(tf);
+        holder.textView7.setTypeface(tf);
+        holder.textView8.setTypeface(tf);
+        holder.textView9.setTypeface(tf);
+
+
         holder.textView1.setText(cardData.getName());
         holder.textView2.setText(cardData.getFile());
         holder.textView3.setText(cardData.getAddtype());
@@ -63,6 +80,7 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<RecyclerCardAdapte
             super(itemView);
             this.data = data;
             this.context = context;
+
             textView1 = (TextView) itemView.findViewById(R.id.name);
             textView2 = (TextView) itemView.findViewById(R.id.file_no);
             textView3 = (TextView) itemView.findViewById(R.id.add_type);
@@ -72,6 +90,7 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<RecyclerCardAdapte
             textView7 = (TextView) itemView.findViewById(R.id.s_contact);
             textView8 = (TextView)itemView.findViewById(R.id.age);
             textView9 = (TextView)itemView.findViewById(R.id.uniid);
+
             itemView.setOnClickListener(this);
         }
 

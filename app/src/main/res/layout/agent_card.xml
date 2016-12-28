@@ -121,15 +121,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Landmark      :"
-                    android:textColor="#91483a"
+                    android:textColor="@color/darkblue"
 
                     />
                 <TextView
-                    android:textColor="#91483a"
+                    android:textColor="@color/darkblue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/land_mark"
-                    android:text="landmark place"
+                    android:text="addresslanmark"
                     />
             </LinearLayout>
             <TextView
