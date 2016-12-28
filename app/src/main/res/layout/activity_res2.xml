@@ -47,7 +47,7 @@
         android:layout_marginTop="20dp" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/RegNoeditText"
         android:layout_below="@+id/textView52"
@@ -70,7 +70,7 @@
         android:layout_marginTop="20dp" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
@@ -93,7 +93,7 @@
         android:layout_marginTop="20dp" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/PoliticaleditText"
         android:layout_alignBottom="@+id/textView3"

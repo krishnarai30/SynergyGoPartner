@@ -53,7 +53,7 @@ public class LocationPhoto extends Activity {
     FloatingActionButton ph;
     String fileno,agentid,Type;
     FloatingActionButton photo;
-    ProgressDialog dialog;
+   ProgressDialog dialog;
 
 
     public static final int LOCATION_REQ_CODE = 100;
@@ -78,6 +78,11 @@ public class LocationPhoto extends Activity {
         lat = (TextView) findViewById(R.id.lat);
         lng = (TextView) findViewById(R.id.lng);
         refresh = (Button) findViewById(R.id.refresh);
+
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Getting Your location....");
+        dialog.show();
+
         refresh.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -93,9 +98,7 @@ public class LocationPhoto extends Activity {
 //            dialog.show();
 //            dialog.setMessage("Getting Coordinates");
 
-            dialog = new ProgressDialog(this);
-            dialog.setMessage("Getting Your location....");
-            dialog.show();
+
             //dialog.setCancelable(true);
             dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
@@ -253,14 +256,14 @@ public class LocationPhoto extends Activity {
         public void onProviderDisabled(String provider) {
 
            // Toast.makeText(this, "Provider Disabled!!!", Toast.LENGTH_LONG).show();
-            dialog.dismiss();
+            //dialog.dismiss();
         }
 
         @Override
         public void onProviderEnabled(String provider) {
 
            // Toast.makeText(this, "Provider Enabled!!!", Toast.LENGTH_LONG).show();
-            dialog.dismiss();
+           // dialog.dismiss();
 
         }
 
@@ -300,10 +303,11 @@ public class LocationPhoto extends Activity {
 
         if(requestCode == 1 && resultCode == RESULT_OK && data!=null){
 
-            ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
+            ProgressDialog progressDialog = new ProgressDialog(LocationPhoto.this);
             progressDialog.setMessage("Wait while the image is uploaded....");
             progressDialog.setCancelable(false);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progressDialog.show();
 
             Log.d("Image URI","in here");
 
@@ -317,6 +321,14 @@ public class LocationPhoto extends Activity {
 
             StorageReference photoRef = storageRef.child(Type).child(fileno).child(selectedImage.getLastPathSegment());
             photoRef.putFile(selectedImage);
+
+            synchronized (this) {
+                try {
+                    wait(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
 
            progressDialog.dismiss();
 
