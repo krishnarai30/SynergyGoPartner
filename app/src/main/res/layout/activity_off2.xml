@@ -9,9 +9,19 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Off2Act">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="1">
+    <TextView
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/darkblue"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Nature of Companies Business"
         android:id="@+id/textView39"
@@ -22,19 +32,34 @@
         android:layout_toLeftOf="@+id/jobtypespinner"
         android:layout_toStartOf="@+id/jobtypespinner" />
 
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:hint="Nature"
+            android:id="@+id/CompanyNatureeditText"
+            android:layout_alignTop="@+id/textView39"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="0.04" />
+
     <TextView
-        android:layout_width="wrap_content"
+        android:textStyle="bold"
+
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Type of Job"
         android:id="@+id/textView40"
         android:layout_marginTop="30dp"
+        android:textColor="@color/darkblue"
         android:layout_below="@+id/textView39"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/jobtypespinner"
         android:layout_alignTop="@+id/textView40"
@@ -43,18 +68,11 @@
         android:layout_alignLeft="@+id/CompanyNatureeditText"
         android:layout_alignStart="@+id/CompanyNatureeditText" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/CompanyNatureeditText"
-        android:layout_alignTop="@+id/textView39"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <TextView
+        android:textStyle="bold"
+
         android:layout_width="wrap_content"
+        android:textColor="@color/darkblue"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Working in Organisation as"
@@ -65,59 +83,75 @@
         android:layout_marginTop="20dp" />
 
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/workingAsspinner"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
         android:layout_alignBottom="@+id/textView41"
         android:layout_alignRight="@+id/jobtypespinner"
         android:layout_alignEnd="@+id/jobtypespinner" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:textStyle="bold"
+
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Job Transferable"
         android:id="@+id/textView53"
         android:layout_alignBottom="@+id/transferspinner"
+        android:textColor="@color/darkblue"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/transferspinner"
+        android:layout_marginTop="20dp"
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/workingAsspinner"
         android:layout_alignStart="@+id/workingAsspinner" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:textStyle="bold"
+
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/darkblue"
         android:text="Other Remarks"
         android:id="@+id/textView54"
         android:layout_below="@+id/textView41"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="114dp" />
+        />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
         android:inputType="textMultiLine"
         android:ems="10"
+        android:gravity="top"
+        android:hint="Put your remarks here"
         android:id="@+id/OtherRemarkseditText"
         android:layout_alignTop="@+id/textView54"
         android:layout_toRightOf="@+id/textView53"
         android:layout_toEndOf="@+id/textView53" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Finish"
+        android:textColor="#fff"
+        android:elevation="8dp"
+        android:background="@color/darkblue"
+        android:layout_gravity="center"
         android:id="@+id/finishsobtn"
-        android:layout_below="@+id/OtherRemarkseditText"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="57dp"
         android:onClick="onClickFinishso" />
+    </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

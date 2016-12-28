@@ -1,44 +1,87 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
 
     <Button
         android:id="@+id/refresh"
-        android:layout_width="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@color/darkblue"
+        android:textColor="#fff"
+        android:layout_width="200dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:text="get Coordinates"
+        android:text="get location"
         android:layout_alignBaseline="@+id/lat"
         android:layout_alignBottom="@+id/lat"
         android:layout_centerHorizontal="true" />
 
     <TextView
+            android:layout_marginTop="30dp"
             android:id="@+id/lat"
-            android:layout_width="wrap_content"
+        android:textColor="@color/darkblue"
+        android:gravity="center"
+            android:layout_width="match_parent"
             android:layout_gravity="center"
+            android:padding="20dp"
+        android:textSize="20dp"
+            android:text="lattiude"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lng" />
 
     <TextView
         android:id="@+id/lng"
+        android:padding="20dp"
+        android:text="longitude"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:textColor="@color/darkblue"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"/>
+        android:layout_width="match_parent"/>
 
-    <Button
-        android:text="Button"
+    <TextView
+        android:layout_marginTop="10dp"
+        android:textSize="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/nbtn" />
+        android:text="Address is here"
+        android:padding="10dp"
+        android:textColor="@color/darkblue"
+        android:gravity="center"
+        android:id="@+id/adres"
+        />
 
-    <Button
-        android:text="photo"
-        android:layout_width="match_parent"
+    </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/pho"
-        android:onClick="onc" />
+        android:src="@drawable/cameraicon"
+        app:backgroundTint="@color/darkblue"
+        android:onClick="onc"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="30dp"
+        />
+    <!--<Button-->
+        <!--android:layout_marginTop="30dp"-->
+        <!--android:text="photo"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/phot"-->
+        <!--android:padding="30dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:onClick="onc" />-->
 
 
-</LinearLayout>
+</RelativeLayout>

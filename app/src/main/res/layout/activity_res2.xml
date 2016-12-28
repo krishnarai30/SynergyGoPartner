@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="20dp"
     android:orientation="vertical">
 
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="vertical"
+         >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Vehicle Seen"
+        android:textStyle="bold"
+        android:textColor="@color/darkblue"
         android:id="@+id/textView52"
-        android:layout_marginTop="142dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        />
 
     <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:id="@+id/Vehiclespinner"
         android:layout_alignTop="@+id/textView52"
         android:layout_alignParentRight="true"
@@ -27,10 +34,12 @@
         android:layout_toRightOf="@+id/textView" />
 
     <TextView
+        android:textStyle="bold"
+        android:textColor="@color/darkblue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Registeration No."
+        android:text="Registration Number"
         android:id="@+id/textView"
         android:layout_below="@+id/Vehiclespinner"
         android:layout_alignParentLeft="true"
@@ -48,6 +57,8 @@
         android:layout_toEndOf="@+id/textView3" />
 
     <TextView
+        android:textStyle="bold"
+        android:textColor="@color/darkblue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -74,6 +85,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Political Influence"
         android:id="@+id/textView3"
+        android:textStyle="bold"
+        android:textColor="@color/darkblue"
         android:layout_below="@+id/CarpetAreaeditText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -94,6 +107,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Other Remarks"
         android:id="@+id/textView4"
+        android:textStyle="bold"
+        android:textColor="@color/darkblue"
         android:layout_below="@+id/PoliticaleditText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -102,7 +117,7 @@
         android:layout_marginTop="20dp" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
@@ -112,12 +127,21 @@
         android:layout_toEndOf="@+id/textView4" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Finish"
         android:id="@+id/Finishbtnsr"
+        android:layout_gravity="center"
+        android:background="@color/darkblue"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:layout_marginBottom="40dp"
         android:layout_below="@+id/OtherRemarkseditText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="82dp"
+        android:layout_marginTop="42dp"
         android:onClick="onClickFinishsr" />
-</RelativeLayout>
+     </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
