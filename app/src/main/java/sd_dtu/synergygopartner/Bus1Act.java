@@ -39,6 +39,8 @@ public class Bus1Act extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_1);
 
+        getSupportActionBar().setTitle("Fill Details");
+
         agenti = getIntent().getStringExtra("agent");
 
         name= (EditText)findViewById(R.id.nameeditText);

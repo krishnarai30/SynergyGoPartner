@@ -38,6 +38,8 @@ public class Off2Act extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_off2);
 
+        getSupportActionBar().setTitle("Record the Responses");
+
         companyNature=(EditText)findViewById(R.id.CompanyNatureeditText);
         remarks=(EditText)findViewById(R.id.OtherRemarkseditText);
         jobType=(Spinner)findViewById(R.id.jobtypespinner);

@@ -78,20 +78,52 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<RecyclerCardAdapte
         @Override
         public void onClick(View view) {
 
-            Intent intent = new Intent(this.context,DetailsAct.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra("name",textView1.getText().toString());
-            intent.putExtra("fileno",textView2.getText().toString());
-            intent.putExtra("addtype",textView3.getText().toString());
-            intent.putExtra("address",textView4.getText().toString());
-            intent.putExtra("landmark",textView5.getText().toString());
-            intent.putExtra("pcontact",textView6.getText().toString());
-            intent.putExtra("scontact",textView7.getText().toString());
-            intent.putExtra("agentid",textView8.getText().toString());
-            intent.putExtra("uniid",textView9.getText().toString().trim());
-            Log.d("AgentAdap",textView8.getText().toString());
-            Log.d("UniqueAdap",textView9.getText().toString());
-            context.startActivity(intent);
+            if(textView3.getText().toString().equals("RESIDENTIAL")) {
+                Intent intent = new Intent(this.context, Res1Act.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("name", textView1.getText().toString());
+                intent.putExtra("file", textView2.getText().toString());
+                intent.putExtra("addtype", textView3.getText().toString());
+                intent.putExtra("address", textView4.getText().toString());
+                intent.putExtra("landmark", textView5.getText().toString());
+                intent.putExtra("pcontact", textView6.getText().toString());
+                intent.putExtra("scontact", textView7.getText().toString());
+                intent.putExtra("agent", textView8.getText().toString());
+                intent.putExtra("uniid", textView9.getText().toString().trim());
+                Log.d("AgentAdap", textView8.getText().toString());
+                Log.d("UniqueAdap", textView9.getText().toString());
+                context.startActivity(intent);
+            } else if(textView3.getText().toString().equals("OFFICE")) {
+                Intent intent = new Intent(this.context, Off1Act.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("name", textView1.getText().toString());
+                intent.putExtra("file", textView2.getText().toString());
+                intent.putExtra("addtype", textView3.getText().toString());
+                intent.putExtra("address", textView4.getText().toString());
+                intent.putExtra("landmark", textView5.getText().toString());
+                intent.putExtra("pcontact", textView6.getText().toString());
+                intent.putExtra("scontact", textView7.getText().toString());
+                intent.putExtra("agent", textView8.getText().toString());
+                intent.putExtra("uniid", textView9.getText().toString().trim());
+                Log.d("AgentAdap", textView8.getText().toString());
+                Log.d("UniqueAdap", textView9.getText().toString());
+                context.startActivity(intent);
+            } else if(textView3.getText().toString().equals(" BUSINESS")) {
+                Intent intent = new Intent(this.context, Bus1Act.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("name", textView1.getText().toString());
+                intent.putExtra("file", textView2.getText().toString());
+                intent.putExtra("addtype", textView3.getText().toString());
+                intent.putExtra("address", textView4.getText().toString());
+                intent.putExtra("landmark", textView5.getText().toString());
+                intent.putExtra("pcontact", textView6.getText().toString());
+                intent.putExtra("scontact", textView7.getText().toString());
+                intent.putExtra("agent", textView8.getText().toString());
+                intent.putExtra("uniid", textView9.getText().toString().trim());
+                Log.d("AgentAdap", textView8.getText().toString());
+                Log.d("UniqueAdap", textView9.getText().toString());
+                context.startActivity(intent);
+            }
 
         }
     }

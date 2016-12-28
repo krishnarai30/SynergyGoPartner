@@ -43,6 +43,8 @@ public class SerRes2Act extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_res2);
 
+        getSupportActionBar().setTitle("Fill Details");
+
         registration= (EditText)findViewById(R.id.RegNoeditText);
         carpetArea= (EditText)findViewById(R.id.CarpetAreaeditText);
         politicalInflu= (EditText)findViewById(R.id.PoliticaleditText);

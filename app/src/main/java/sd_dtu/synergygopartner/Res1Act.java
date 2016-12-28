@@ -39,6 +39,8 @@ public class Res1Act extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_res1);
 
+        getSupportActionBar().setTitle("Fill the Details");
+
         name= (EditText)findViewById(R.id.Personnameet);
         noFamilyMem=(EditText)findViewById(R.id.FamilymemeditText);
         workingMem=(EditText)findViewById(R.id.workingmemeditText);

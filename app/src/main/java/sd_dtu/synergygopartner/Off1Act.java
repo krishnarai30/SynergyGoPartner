@@ -28,6 +28,8 @@ public class Off1Act extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_off1);
 
+        getSupportActionBar().setTitle("Record the responses");
+
         name=(EditText)findViewById(R.id.personconteditText);
         designation=(EditText)findViewById(R.id.desigPCeditText);
         mobile=(EditText)findViewById(R.id.mobPCeditText);
@@ -59,7 +61,7 @@ public class Off1Act extends AppCompatActivity {
                 databaseReference.child("Data").child("Office").child(filestr).child("Mobile").setValue(smobile);
                 databaseReference.child("Data").child("Office").child(filestr).child("Date of Joining of Applicant").setValue(sjoinDate);
                 databaseReference.child("Data").child("Office").child(filestr).child("Designation of Applicant").setValue(sdesigApp);
-                databaseReference.child("Data").child("Office").child(filestr).child("No. of years in present Employment ").setValue(snoYears);
+                databaseReference.child("Data").child("Office").child(filestr).child("Number of years in present Employment ").setValue(snoYears);
 
 
                 Intent intent = new Intent(Off1Act.this, Off2Act.class);

@@ -1,31 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Bus1Act">
-
-    <TextView
-        android:layout_width="wrap_content"
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/darkblue"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Person Contacted"
         android:id="@+id/textView55"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="56dp" />
+    />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name"
         android:ems="10"
+        android:hint="Person's name"
         android:id="@+id/nameeditText"
         android:layout_alignTop="@+id/textView55"
         android:layout_alignParentRight="true"
@@ -34,7 +43,10 @@
         android:layout_toEndOf="@+id/textView55" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:textColor="@color/darkblue"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Designation"
@@ -44,8 +56,9 @@
         android:layout_alignParentStart="true" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Enter Designation"
         android:id="@+id/designationeditText"
         android:layout_below="@+id/nameeditText"
         android:layout_toRightOf="@+id/textView55"
@@ -53,6 +66,9 @@
         android:layout_alignEnd="@+id/nameeditText" />
 
     <TextView
+        android:textColor="@color/darkblue"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -63,20 +79,24 @@
         android:layout_alignParentStart="true" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
+        android:hint="Contact Number"
         android:id="@+id/phoneeditText"
         android:layout_below="@+id/designationeditText"
         android:layout_alignLeft="@+id/designationeditText"
         android:layout_alignStart="@+id/designationeditText" />
 
     <TextView
+        android:layout_marginTop="20dp"
+        android:textColor="@color/darkblue"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Office Telephone No."
+        android:text="Office Telephone Number"
         android:id="@+id/textView58"
         android:layout_below="@+id/phoneeditText"
         android:layout_alignParentLeft="true"
@@ -85,16 +105,20 @@
         android:layout_toStartOf="@+id/phoneeditText" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="phone"
         android:ems="10"
+        android:hint="Office number"
         android:id="@+id/offteleditText"
         android:layout_alignBottom="@+id/textView58"
         android:layout_alignLeft="@+id/phoneeditText"
         android:layout_alignStart="@+id/phoneeditText" />
 
     <TextView
+        android:layout_marginTop="20dp"
+        android:textColor="@color/darkblue"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -107,20 +131,24 @@
         android:layout_alignEnd="@+id/textView58" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
+        android:hint="Field of Business"
         android:id="@+id/busnatureeditText"
         android:layout_below="@+id/textView58"
         android:layout_toRightOf="@+id/textView58"
         android:layout_toEndOf="@+id/textView58" />
 
     <TextView
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/darkblue"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="No. of Years of Company"
+        android:text="Number of Years of Company"
         android:id="@+id/textView60"
         android:layout_below="@+id/textView59"
         android:layout_alignParentLeft="true"
@@ -129,61 +157,65 @@
         android:layout_alignEnd="@+id/textView59" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
+        android:hint="Years since formation of company"
         android:id="@+id/yearseditText"
         android:layout_alignTop="@+id/textView60"
         android:layout_toRightOf="@+id/textView60"
         android:layout_toEndOf="@+id/textView60" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/darkblue"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Type of Company"
         android:id="@+id/textView61"
-        android:layout_below="@+id/textView60"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        />
 
     <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:id="@+id/spinnecompanytyper"
-        android:layout_alignTop="@+id/textView61"
-        android:layout_alignLeft="@+id/yearseditText"
-        android:layout_alignStart="@+id/yearseditText" />
+        />
 
     <TextView
+        android:textColor="@color/darkblue"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="No. of Employees"
+        android:text="Number of Employees"
         android:id="@+id/textView62"
-        android:layout_below="@+id/spinnecompanytyper"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_marginTop="20dp" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
+        android:hint="Total Employees"
         android:id="@+id/EmpeditText"
-        android:layout_below="@+id/spinnecompanytyper"
-        android:layout_toRightOf="@+id/textView61"
-        android:layout_toEndOf="@+id/textView61" />
+        />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Next"
         android:id="@+id/nxtbbtn"
-        android:layout_below="@+id/EmpeditText"
-        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:background="@color/darkblue"
+        android:elevation="8dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"
         android:layout_marginTop="34dp"
         android:onClick="onClickNextb1" />
-</RelativeLayout>
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>

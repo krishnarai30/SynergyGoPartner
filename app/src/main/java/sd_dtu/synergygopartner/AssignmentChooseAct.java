@@ -43,6 +43,8 @@ public class AssignmentChooseAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assignment_choose);
 
+        final String AgentID = getIntent().getStringExtra("Agent");
+        getSupportActionBar().setTitle("Agent ID : " + AgentID);
         recyclerView = (RecyclerView)findViewById(R.id.recyc_view);
 
        // fileslv=(ListView)findViewById(R.id.agentlv);
@@ -59,7 +61,6 @@ public class AssignmentChooseAct extends AppCompatActivity {
             mDatabasechecked = FirebaseDatabase.getInstance().getReference();
             SharedPreferences prefs = getPreferences(MODE_PRIVATE);
             //String AgentID= prefs.getString("AgentID","");
-            final String AgentID = getIntent().getStringExtra("Agent");
             mDatabasechecked.child("file").child(AgentID).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

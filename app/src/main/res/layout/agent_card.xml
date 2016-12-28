@@ -90,7 +90,7 @@
                     />
             </LinearLayout>
             <TextView
-                android:textColor="#656c27"
+                android:textColor="#143c57"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Address type"

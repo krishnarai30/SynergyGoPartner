@@ -21,6 +21,7 @@ import android.app.ProgressDialog;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -47,8 +48,9 @@ public class LocationPhoto extends Activity {
     private double longitude = 0;
     TextView lat, lng,textView;
     Button refresh;
+    FloatingActionButton photo;
     String fileno,agentid,Type;
-    Button photo;
+    //Button photo;
     ProgressDialog dialog;
 
 
@@ -65,7 +67,7 @@ public class LocationPhoto extends Activity {
         agentid = getIntent().getStringExtra("agent");
         Type = getIntent().getStringExtra("type");
 
-        photo = (Button) findViewById(R.id.pho);
+        photo = (FloatingActionButton) findViewById(R.id.pho);
 
         textView = (TextView) findViewById(R.id.adres);
         lat = (TextView) findViewById(R.id.lat);
@@ -183,6 +185,7 @@ public class LocationPhoto extends Activity {
                 useradd=useradd+(address.getCountryName().toString());
                 textView.setText(useradd.toString());
             } catch (IOException e) {
+
                 e.printStackTrace();
             }
 
@@ -298,8 +301,8 @@ public class LocationPhoto extends Activity {
         }
         else {
             Toast.makeText(getApplicationContext(),"Image not uploaded",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(LocationPhoto.this,LocationPhoto.class);
-            startActivity(intent);
+//            Intent intent = new Intent(LocationPhoto.this,LocationPhoto.class);
+//            startActivity(intent);
         }
     }
 

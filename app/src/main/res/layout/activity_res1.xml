@@ -19,26 +19,28 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/darkblue"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Name of Person Contacted"
         android:id="@+id/textView43"
-        android:layout_marginTop="37dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
                 android:id="@+id/Personnameet"
-                android:hint="Name"
                 android:layout_above="@+id/textView44"
                 android:layout_toRightOf="@+id/textView43"
                 android:layout_toEndOf="@+id/textView43" />
 
     <TextView
+        android:textColor="@color/darkblue"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -50,15 +52,17 @@
         android:layout_alignParentStart="true" />
 
     <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
         android:id="@+id/ResStatusSpinner"
         android:layout_alignBottom="@+id/textView44"
         android:layout_alignRight="@+id/MaritalStatusSpinner"
         android:layout_alignEnd="@+id/MaritalStatusSpinner" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:textColor="@color/darkblue"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Marital Status"
@@ -69,14 +73,16 @@
         android:layout_marginTop="20dp" />
 
     <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
         android:id="@+id/MaritalStatusSpinner"
         android:layout_alignBottom="@+id/textView45"
         android:layout_toRightOf="@+id/Localityspinner"
         android:layout_toEndOf="@+id/Localityspinner" />
 
     <TextView
+        android:textColor="@color/darkblue"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -98,6 +104,8 @@
         android:layout_toEndOf="@+id/nextsr1btn" />
 
     <TextView
+        android:textColor="@color/darkblue"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -119,6 +127,8 @@
         android:layout_alignStart="@+id/dependenteditText" />
 
     <TextView
+        android:textColor="@color/darkblue"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -140,6 +150,8 @@
         android:layout_toEndOf="@+id/textView48" />
 
     <TextView
+        android:textColor="@color/darkblue"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -161,6 +173,8 @@
         android:layout_alignEnd="@+id/SpouseeditText" />
 
     <TextView
+        android:textColor="@color/darkblue"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -182,6 +196,8 @@
         android:layout_alignStart="@+id/nextsr1btn" />
 
     <TextView
+        android:textColor="@color/darkblue"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -193,19 +209,24 @@
         android:layout_marginTop="15dp" />
 
     <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
         android:id="@+id/Localityspinner"
         android:layout_alignBottom="@+id/textView51"
         android:layout_alignLeft="@+id/ChildreneditText"
         android:layout_alignStart="@+id/ChildreneditText" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Next"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:background="@color/darkblue"
+        android:layout_gravity="center"
         android:id="@+id/nextsr1btn"
         android:onClick="onClicknextsr1"
+        android:elevation="8dp"
         android:layout_below="@+id/textView51"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp" />
