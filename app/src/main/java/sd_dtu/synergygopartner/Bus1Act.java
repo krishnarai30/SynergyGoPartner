@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import me.anwarshahriar.calligrapher.Calligrapher;
+
 public class Bus1Act extends AppCompatActivity {
 
     EditText name,desig,contact,offTele,bussNature,YearCompany,noEmployee;
@@ -38,6 +40,9 @@ public class Bus1Act extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_1);
+
+        Calligrapher calligrapher = new Calligrapher(this);
+        calligrapher.setFont(this,"fonts/OpenSans-Regular.ttf",true);
 
         getSupportActionBar().setTitle("Fill Details");
 

@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import me.anwarshahriar.calligrapher.Calligrapher;
+
 public class Off1Act extends AppCompatActivity {
 
     EditText name,designation,mobile,joinDate,desigApp,noYears;
@@ -28,6 +30,8 @@ public class Off1Act extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_off1);
 
+        Calligrapher calligrapher = new Calligrapher(this);
+        calligrapher.setFont(this,"fonts/OpenSans-Regular.ttf",true);
         getSupportActionBar().setTitle("Record the responses");
 
         name=(EditText)findViewById(R.id.personconteditText);

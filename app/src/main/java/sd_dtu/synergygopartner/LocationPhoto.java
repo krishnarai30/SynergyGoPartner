@@ -41,6 +41,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import me.anwarshahriar.calligrapher.Calligrapher;
+
 public class LocationPhoto extends Activity {
 
     protected LocationManager locationManager;
@@ -48,9 +50,9 @@ public class LocationPhoto extends Activity {
     private double longitude = 0;
     TextView lat, lng,textView;
     Button refresh;
-    FloatingActionButton photo;
+    FloatingActionButton ph;
     String fileno,agentid,Type;
-    //Button photo;
+    FloatingActionButton photo;
     ProgressDialog dialog;
 
 
@@ -62,6 +64,9 @@ public class LocationPhoto extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location_photo);
+
+        Calligrapher calligrapher = new Calligrapher(this);
+        calligrapher.setFont(this,"fonts/OpenSans-Regular.ttf",true);
 
         fileno = getIntent().getStringExtra("file");
         agentid = getIntent().getStringExtra("agent");
@@ -82,52 +87,68 @@ public class LocationPhoto extends Activity {
             }
         });
 
-        if(isNetworkAvailable(getApplicationContext())) {
+        if (isNetworkAvailable(getApplicationContext())) {
 
-            dialog = new ProgressDialog(LocationPhoto.this);
+//            dialog = new ProgressDialog(LocationPhoto.this);
+//            dialog.show();
+//            dialog.setMessage("Getting Coordinates");
+
+            dialog = new ProgressDialog(this);
+            dialog.setMessage("Getting Your location....");
             dialog.show();
-            dialog.setMessage("Getting Coordinates");
-
-
-            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-
-                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
-                        PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQ_CODE);
-                    return;
+            //dialog.setCancelable(true);
+            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    Toast.makeText(getApplicationContext(), "Taking too long", Toast.LENGTH_LONG).show();
+                    AlertDialog.Builder alert = new AlertDialog.Builder(LocationPhoto.this);
+                    alert.setTitle("The process was cancelled").
+                            setMessage("The process was stopped by you due to any reason. \n The reason may be the " +
+                                    "long time taken, this might happen if their is no proper connectivity for the process").show();
                 }
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 100, locationListener);
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100, locationListener);
-            } else {
-                dialog.dismiss();
+            });
 
-                AlertDialog.Builder builder =
-                        new AlertDialog.Builder(this);
-                final String action = Settings.ACTION_LOCATION_SOURCE_SETTINGS;
-                final String message = "Enable either GPS or any other location"
-                        + " service to find current location.  Click OK to go to"
-                        + " location services settings to let you do so.";
-                builder.setTitle("Enable Location");
+                    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-                builder.setMessage(message)
-                        .setPositiveButton("OK",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface d, int id) {
-                                        startActivity(new Intent(action));
-                                        d.dismiss();
-                                    }
-                                })
-                        .setNegativeButton("Cancel",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface d, int id) {
-                                        d.cancel();
-                                    }
-                                });
-                builder.create().show();
-            }
-        } else {
+                    if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+
+                        if (ActivityCompat.checkSelfPermission(LocationPhoto.this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                                PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(LocationPhoto.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQ_CODE);
+                            return;
+                        }
+                        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 100, locationListener);
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100, locationListener);
+                        dialog.dismiss();
+                    }
+                else {
+                    dialog.dismiss();
+
+                    AlertDialog.Builder builder =
+                            new AlertDialog.Builder(LocationPhoto.this);
+                    final String action = Settings.ACTION_LOCATION_SOURCE_SETTINGS;
+                    final String message = "Enable either GPS or any other location"
+                            + " service to find current location.  Click OK to go to"
+                            + " location services settings to let you do so.";
+                    builder.setTitle("Enable Location");
+
+                    builder.setMessage(message)
+                            .setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface d, int id) {
+                                            startActivity(new Intent(action));
+                                            d.dismiss();
+                                        }
+                                    })
+                            .setNegativeButton("Cancel",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface d, int id) {
+                                            d.cancel();
+                                        }
+                                    });
+                    builder.create().show();
+                }
+    } else {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("No Internet Connection...")
                     .setMessage("Click Here to set Active connection")
@@ -185,7 +206,6 @@ public class LocationPhoto extends Activity {
                 useradd=useradd+(address.getCountryName().toString());
                 textView.setText(useradd.toString());
             } catch (IOException e) {
-
                 e.printStackTrace();
             }
 
@@ -197,7 +217,7 @@ public class LocationPhoto extends Activity {
                 lat.setText("Latitude is :" +location.getLatitude());
                 lng.setText("Longitude is :" +location.getLongitude());
 
-                dialog.dismiss();
+//                dialog.dismiss();
             }
 
             if(isNetworkAvailable(getApplicationContext())){
@@ -280,6 +300,11 @@ public class LocationPhoto extends Activity {
 
         if(requestCode == 1 && resultCode == RESULT_OK && data!=null){
 
+            ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
+            progressDialog.setMessage("Wait while the image is uploaded....");
+            progressDialog.setCancelable(false);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+
             Log.d("Image URI","in here");
 
             Uri selectedImage = data.getData();
@@ -293,7 +318,9 @@ public class LocationPhoto extends Activity {
             StorageReference photoRef = storageRef.child(Type).child(fileno).child(selectedImage.getLastPathSegment());
             photoRef.putFile(selectedImage);
 
-            Toast.makeText(this, "image uploaded", Toast.LENGTH_SHORT).show();
+           progressDialog.dismiss();
+
+            Toast.makeText(this, "Image Uploaded", Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(LocationPhoto.this,AssignmentChooseAct.class);
             intent.putExtra("Agent",agentid);
@@ -301,8 +328,9 @@ public class LocationPhoto extends Activity {
         }
         else {
             Toast.makeText(getApplicationContext(),"Image not uploaded",Toast.LENGTH_LONG).show();
-//            Intent intent = new Intent(LocationPhoto.this,LocationPhoto.class);
-//            startActivity(intent);
+           // Intent intent = new Intent(LocationPhoto.this,LocationPhoto.class);
+
+           // startActivity(intent);
         }
     }
 

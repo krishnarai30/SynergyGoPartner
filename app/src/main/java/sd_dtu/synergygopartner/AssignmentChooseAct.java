@@ -27,6 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
+import me.anwarshahriar.calligrapher.Calligrapher;
+
 public class AssignmentChooseAct extends AppCompatActivity {
 
     //ListView fileslv;
@@ -42,6 +44,9 @@ public class AssignmentChooseAct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assignment_choose);
+
+        Calligrapher calligrapher = new Calligrapher(this);
+        calligrapher.setFont(this,"fonts/OpenSans-Regular.ttf",true);
 
         final String AgentID = getIntent().getStringExtra("Agent");
         getSupportActionBar().setTitle("Agent ID : " + AgentID);

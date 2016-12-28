@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import me.anwarshahriar.calligrapher.Calligrapher;
+
 public class Off2Act extends AppCompatActivity {
     EditText companyNature,remarks;
     String scompanyNature,sremarks,sjobType,sworkOrg,sjobTransfer;
@@ -37,6 +39,9 @@ public class Off2Act extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_off2);
+
+        Calligrapher calligrapher = new Calligrapher(this);
+        calligrapher.setFont(this,"fonts/OpenSans-Regular.ttf",true);
 
         getSupportActionBar().setTitle("Record the Responses");
 

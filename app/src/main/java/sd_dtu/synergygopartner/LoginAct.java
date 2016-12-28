@@ -29,13 +29,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 
 public class LoginAct extends AppCompatActivity {
 
     EditText agentId,pass;
     public String AgentIDin,PassIn;
     private FirebaseAuth mAuth;
-
+    ArrayList<String> list = new ArrayList<String>();
 
 
     @Override
@@ -44,6 +46,21 @@ public class LoginAct extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         agentId=(EditText)findViewById(R.id.AgenitIDeditText);
         pass=(EditText)findViewById(R.id.PasseditText);
+//        if (isNetworkAvailable(getApplicationContext())) {
+//
+//
+//            final ProgressDialog dialog = new ProgressDialog(this);
+//            dialog.setMessage("Validating your details....");
+//            dialog.show();
+//            //dialog.setCancelable(true);
+//            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//                @Override
+//                public void onCancel(DialogInterface dialog) {
+//                    Toast.makeText(getApplicationContext(),"Taking too long",Toast.LENGTH_LONG).show();
+//                    AlertDialog.Builder alert = new AlertDialog.Builder(LoginAct.this);
+//                    alert.setTitle("The process was cancelled").
+//                            setMessage("The process was stopped by you due to any reason. \n The reason may be the " +
+//                                    "long time taken, this might happen if their is no proper connectivity for the process").show();
 
     }
 
@@ -60,10 +77,22 @@ public class LoginAct extends AppCompatActivity {
         else {
             if (isNetworkAvailable(getApplicationContext())) {
 
+
                 final ProgressDialog dialog = new ProgressDialog(this);
                 dialog.setMessage("Validating your details....");
                 dialog.show();
-                dialog.setCancelable(true);
+                //dialog.setCancelable(true);
+                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        Toast.makeText(getApplicationContext(), "Taking too long", Toast.LENGTH_LONG).show();
+                        AlertDialog.Builder alert = new AlertDialog.Builder(LoginAct.this);
+                        alert.setTitle("The process was cancelled").
+                                setMessage("The process was stopped by you due to any reason. \n The reason may be the " +
+                                        "long time taken, this might happen if their is no proper connectivity for the process").show();
+                    }
+                });
+
 
                 DatabaseReference mdatabaseref = FirebaseDatabase.getInstance().getReference();
 
@@ -71,11 +100,12 @@ public class LoginAct extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
+                        int r =0;
                         Log.d("Entered", "IN HERE");
                         for (DataSnapshot file : dataSnapshot.getChildren()) {
                             if (file.getKey().toString().equals(AgentIDin)) {
                                 if (file.child("password").getValue().toString().equals(PassIn)) {
-                                    Log.d("CHECKED", "MATCHED!");
+                                    //Log.d("CHECKED", "MATCHED!");
                                     dialog.dismiss();
                                     Intent intent = new Intent(LoginAct.this, AssignmentChooseAct.class);
                                     intent.putExtra("Agent", AgentIDin);
@@ -84,10 +114,19 @@ public class LoginAct extends AppCompatActivity {
                                     dialog.dismiss();
                                     Toast.makeText(getApplicationContext(), "Password not matched", Toast.LENGTH_LONG).show();
                                 }
-                            } else {
-                                dialog.dismiss();
-                                //Toast.makeText(getApplicationContext(), "Agent ID not registered!", Toast.LENGTH_LONG).show();
+                                list.add(file.getKey().toString());
                             }
+                        }
+                        for(String a : list) {
+                            if(a.equals(AgentIDin))
+                            {
+                                r = 1;
+                                break;
+                            }
+                        }
+                        if(r == 0) {
+                            dialog.dismiss();
+                            Toast.makeText(getApplicationContext(), "Agent ID not registered!", Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -96,25 +135,83 @@ public class LoginAct extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "The Error is still here", Toast.LENGTH_LONG).show();
                     }
                 });
-
-            } else {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-                alertDialogBuilder.setTitle("No Internet Connection...")
-                        .setMessage("Click Here to set Active connection")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do nothing
-                            }
-                        })
-                        .setIcon(R.drawable.error)
-                        .show();
             }
-        }
+                //  Runnable progressRunnable = new Runnable() {
+
+                //    @Override
+                  //  public void run() {
+
+
+            else {
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                        alertDialogBuilder.setTitle("No Internet Connection...")
+                                .setMessage("Click Here to set Active connection")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // do nothing
+                                    }
+                                })
+                                .setIcon(R.drawable.error)
+                                .show();
+                    }
+                }
+
+
+//                DatabaseReference mdatabaseref = FirebaseDatabase.getInstance().getReference();
+//
+//                mdatabaseref.child("AgentID").addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                        Log.d("Entered", "IN HERE");
+//                        for (DataSnapshot file : dataSnapshot.getChildren()) {
+//                            if (file.getKey().toString().equals(AgentIDin)) {
+//                                if (file.child("password").getValue().toString().equals(PassIn)) {
+//                                    Log.d("CHECKED", "MATCHED!");
+//                                    dialog.dismiss();
+//                                    Intent intent = new Intent(LoginAct.this, AssignmentChooseAct.class);
+//                                    intent.putExtra("Agent", AgentIDin);
+//                                    startActivity(intent);
+//                                } else {
+//                                    dialog.dismiss();
+//                                    Toast.makeText(getApplicationContext(), "Password not matched", Toast.LENGTH_LONG).show();
+//                                }
+//                            } else {
+//                                dialog.dismiss();
+//                                //Toast.makeText(getApplicationContext(), "Agent ID not registered!", Toast.LENGTH_LONG).show();
+//                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//                        Toast.makeText(getApplicationContext(), "The Error is still here", Toast.LENGTH_LONG).show();
+//                    }
+//                });
+//
+//            } else {
+//                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+//                alertDialogBuilder.setTitle("No Internet Connection...")
+//                        .setMessage("Click Here to set Active connection")
+//                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+//                            }
+//                        })
+//                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                // do nothing
+//                            }
+//                        })
+//                        .setIcon(R.drawable.error)
+//                        .show();
+//            }
+//        }
 //        mAuth=FirebaseAuth.getInstance();
 //
 //        mAuth.signInWithEmailAndPassword(AgentIDin, PassIn)

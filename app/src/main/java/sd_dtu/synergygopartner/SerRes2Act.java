@@ -24,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import me.anwarshahriar.calligrapher.Calligrapher;
+
 /**
  * Created by sam AR on 8/15/2016.
  */
@@ -42,6 +44,9 @@ public class SerRes2Act extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_res2);
+
+        Calligrapher calligrapher = new Calligrapher(this);
+        calligrapher.setFont(this,"fonts/OpenSans-Regular.ttf",true);
 
         getSupportActionBar().setTitle("Fill Details");
 
