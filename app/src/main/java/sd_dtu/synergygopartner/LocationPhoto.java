@@ -7,11 +7,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,6 +39,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -55,8 +59,11 @@ public class LocationPhoto extends Activity {
     FloatingActionButton photo;
    ProgressDialog dialog;
 
+    Uri selectedImage;
+    Bitmap photos;
 
     public static final int LOCATION_REQ_CODE = 100;
+    public static final int EXTERNAL_STORAGE_CODE = 101;
 
 
 
@@ -79,9 +86,9 @@ public class LocationPhoto extends Activity {
         lng = (TextView) findViewById(R.id.lng);
         refresh = (Button) findViewById(R.id.refresh);
 
-        dialog = new ProgressDialog(this);
-        dialog.setMessage("Getting Your location....");
-        dialog.show();
+//        dialog = new ProgressDialog(this);
+//        dialog.setMessage("Getting Your location....");
+//        dialog.show();
 
         refresh.setOnClickListener(new View.OnClickListener() {
 
@@ -92,11 +99,14 @@ public class LocationPhoto extends Activity {
             }
         });
 
+
+
+
         if (isNetworkAvailable(getApplicationContext())) {
 
-//            dialog = new ProgressDialog(LocationPhoto.this);
-//            dialog.show();
-//            dialog.setMessage("Getting Coordinates");
+            dialog = new ProgressDialog(LocationPhoto.this);
+            dialog.show();
+            dialog.setMessage("Getting Coordinates");
 
 
             //dialog.setCancelable(true);
@@ -191,6 +201,13 @@ public class LocationPhoto extends Activity {
                 }
             }
         }
+        else if(requestCode == EXTERNAL_STORAGE_CODE) {
+            if(permissions[0] == Manifest.permission.WRITE_EXTERNAL_STORAGE) {
+                if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    selectedImage = getImageUri(LocationPhoto.this,photos);
+                }
+            }
+        }
     }
 
     LocationListener locationListener = new LocationListener() {
@@ -271,12 +288,12 @@ public class LocationPhoto extends Activity {
 
     public void onc(View view) {
 
-//        Intent intent = new Intent(Intent.ACTION_GET_CONTENT , null);
-//        intent.setType("image/*");
-//        startActivityForResult(intent, 1);
+       // Intent intent = new Intent(Intent.ACTION_GET_CONTENT , null);
+       // intent.setType("image/*");
+       // startActivityForResult(intent, 1);
 
         Intent cam_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File file = getFile();
+       // File file = getFile();
      //   cam_intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(file));
         startActivityForResult(cam_intent,1);
 
@@ -311,28 +328,37 @@ public class LocationPhoto extends Activity {
 
             Log.d("Image URI","in here");
 
-            Uri selectedImage = data.getData();
+//            Bitmap photo = (Bitmap)data.getExtras().get("data");
+// Uri selectedImage = data.getData();
 
-            Log.d("Image URI",selectedImage.toString());
+           // String imagesel =
+
+//            File finalFile = new File(getRealPathFromURI(selectedImage));
+
+          // Log.d("Image URI",selectedImage.toString());
+
+            Bundle extra = data.getExtras();
+            photos = (Bitmap)extra.get("data");
+
+            int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+
+            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},EXTERNAL_STORAGE_CODE);
+            } else {
+                selectedImage = getImageUri(LocationPhoto.this,photos);
+
+            }
+
 
             FirebaseStorage storage = FirebaseStorage.getInstance();
-
             StorageReference storageRef = storage.getReferenceFromUrl("gs://synergy-go.appspot.com");
-
-            StorageReference photoRef = storageRef.child(Type).child(fileno).child(selectedImage.getLastPathSegment());
-            photoRef.putFile(selectedImage);
-
-            synchronized (this) {
-                try {
-                    wait(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+           StorageReference photoRef = storageRef.child(Type).child(fileno).child(selectedImage.getLastPathSegment());
+           photoRef.putFile(selectedImage);
 
            progressDialog.dismiss();
 
-            Toast.makeText(this, "Image Uploaded", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Image Uploaded", Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(LocationPhoto.this,AssignmentChooseAct.class);
             intent.putExtra("Agent",agentid);
@@ -349,6 +375,20 @@ public class LocationPhoto extends Activity {
     public boolean isNetworkAvailable(final Context context) {
         final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
     }
 }
 
