@@ -59,8 +59,9 @@ public class LocationPhoto extends Activity {
     FloatingActionButton photo;
    ProgressDialog dialog;
 
-    Uri selectedImage;
     Bitmap photos;
+
+    boolean b = true;
 
     public static final int LOCATION_REQ_CODE = 100;
     public static final int EXTERNAL_STORAGE_CODE = 101;
@@ -102,24 +103,34 @@ public class LocationPhoto extends Activity {
 
 
 
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},EXTERNAL_STORAGE_CODE);
+        } else {
+            //  selectedImage = getImageUri(LocationPhoto.this,photos);
+                b = false;
+        }
+
+
         if (isNetworkAvailable(getApplicationContext())) {
 
             dialog = new ProgressDialog(LocationPhoto.this);
             dialog.show();
             dialog.setMessage("Getting Coordinates");
 
-
             //dialog.setCancelable(true);
-            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    Toast.makeText(getApplicationContext(), "Taking too long", Toast.LENGTH_LONG).show();
-                    AlertDialog.Builder alert = new AlertDialog.Builder(LocationPhoto.this);
-                    alert.setTitle("The process was cancelled").
-                            setMessage("The process was stopped by you due to any reason. \n The reason may be the " +
-                                    "long time taken, this might happen if their is no proper connectivity for the process").show();
-                }
-            });
+//            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//                @Override
+//                public void onCancel(DialogInterface dialog) {
+//                    Toast.makeText(getApplicationContext(), "Taking too long", Toast.LENGTH_LONG).show();
+//                    AlertDialog.Builder alert = new AlertDialog.Builder(LocationPhoto.this);
+//                    alert.setTitle("The process was cancelled").
+//                            setMessage("The process was stopped by you due to any reason. \n The reason may be the " +
+//                                    "long time taken, this might happen if their is no proper connectivity for the process").show();
+//                }
+//            });
 
                     locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -204,7 +215,8 @@ public class LocationPhoto extends Activity {
         else if(requestCode == EXTERNAL_STORAGE_CODE) {
             if(permissions[0] == Manifest.permission.WRITE_EXTERNAL_STORAGE) {
                 if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    selectedImage = getImageUri(LocationPhoto.this,photos);
+                  //  selectedImage = getImageUri(LocationPhoto.this,photos);
+                    b = false;
                 }
             }
         }
@@ -237,7 +249,7 @@ public class LocationPhoto extends Activity {
                 lat.setText("Latitude is :" +location.getLatitude());
                 lng.setText("Longitude is :" +location.getLongitude());
 
-//                dialog.dismiss();
+                dialog.dismiss();
             }
 
             if(isNetworkAvailable(getApplicationContext())){
@@ -273,14 +285,14 @@ public class LocationPhoto extends Activity {
         public void onProviderDisabled(String provider) {
 
            // Toast.makeText(this, "Provider Disabled!!!", Toast.LENGTH_LONG).show();
-            //dialog.dismiss();
+            dialog.dismiss();
         }
 
         @Override
         public void onProviderEnabled(String provider) {
 
            // Toast.makeText(this, "Provider Enabled!!!", Toast.LENGTH_LONG).show();
-           // dialog.dismiss();
+            dialog.dismiss();
 
         }
 
@@ -293,8 +305,8 @@ public class LocationPhoto extends Activity {
        // startActivityForResult(intent, 1);
 
         Intent cam_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-       // File file = getFile();
-     //   cam_intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(file));
+       //File file = getFile();
+        //cam_intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(file));
         startActivityForResult(cam_intent,1);
 
     }
@@ -305,6 +317,10 @@ public class LocationPhoto extends Activity {
         int i = number.getInt("start",0);
         String x = Integer.toString(i);
         i++;
+
+        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+        editor.putInt("start",i);
+
         File folder = new File("sdcard/synergy_partner");
         if(!folder.exists())
         {
@@ -319,12 +335,12 @@ public class LocationPhoto extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 1 && resultCode == RESULT_OK && data!=null){
-
-            ProgressDialog progressDialog = new ProgressDialog(LocationPhoto.this);
-            progressDialog.setMessage("Wait while the image is uploaded....");
-            progressDialog.setCancelable(false);
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            progressDialog.show();
+//
+//            ProgressDialog progressDialog = new ProgressDialog(LocationPhoto.this);
+//            progressDialog.setMessage("Wait while the image is uploaded....");
+//            progressDialog.setCancelable(false);
+//            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+//            progressDialog.show();
 
             Log.d("Image URI","in here");
 
@@ -335,34 +351,44 @@ public class LocationPhoto extends Activity {
 
 //            File finalFile = new File(getRealPathFromURI(selectedImage));
 
-          // Log.d("Image URI",selectedImage.toString());
+//            Uri selectedImag = data.getData();
+            if(b == false)
+            {
+                Bitmap photo = (Bitmap)data.getExtras().get("data");
+                Uri selectedImage = getImageUri(LocationPhoto.this,photo);
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                StorageReference storageRef = storage.getReferenceFromUrl("gs://synergy-go.appspot.com");
+                StorageReference photoRef = storageRef.child(Type).child(fileno).child(selectedImage.getLastPathSegment());
+                photoRef.putFile(selectedImage);
 
-            Bundle extra = data.getExtras();
-            photos = (Bitmap)extra.get("data");
+             //   progressDialog.dismiss();
 
-            int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                Toast.makeText(this,"Image Uploaded", Toast.LENGTH_SHORT).show();
 
-
-            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},EXTERNAL_STORAGE_CODE);
+                Intent intent = new Intent(LocationPhoto.this,AssignmentChooseAct.class);
+                intent.putExtra("Agent",agentid);
+                startActivity(intent);
             } else {
-                selectedImage = getImageUri(LocationPhoto.this,photos);
-
+                Toast.makeText(getApplicationContext(),"THis is it",Toast.LENGTH_LONG).show();
             }
 
+          // Log.d("Image URI",selectedImage.toString());
 
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReferenceFromUrl("gs://synergy-go.appspot.com");
-           StorageReference photoRef = storageRef.child(Type).child(fileno).child(selectedImage.getLastPathSegment());
-           photoRef.putFile(selectedImage);
+            //Bundle extra = data.getExtras();
+            //photos = (Bitmap)extra.get("data");
 
-           progressDialog.dismiss();
+//            int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+//
+//
+//            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+//                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},EXTERNAL_STORAGE_CODE);
+//            } else {
+//              //  selectedImage = getImageUri(LocationPhoto.this,photos);
+//
+//            }
 
-            Toast.makeText(this,"Image Uploaded", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(LocationPhoto.this,AssignmentChooseAct.class);
-            intent.putExtra("Agent",agentid);
-            startActivity(intent);
+
         }
         else {
             Toast.makeText(getApplicationContext(),"Image not uploaded",Toast.LENGTH_LONG).show();
