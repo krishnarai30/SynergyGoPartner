@@ -123,7 +123,7 @@ public class LocationPhoto extends Activity {
             //dialog.setCancelable(true);
 //            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 //                @Override
-//                public void onCancel(DialogInterface dialog) {
+//                public void onCancel(DialogInterface dialog)              {
 //                    Toast.makeText(getApplicationContext(), "Taking too long", Toast.LENGTH_LONG).show();
 //                    AlertDialog.Builder alert = new AlertDialog.Builder(LocationPhoto.this);
 //                    alert.setTitle("The process was cancelled").

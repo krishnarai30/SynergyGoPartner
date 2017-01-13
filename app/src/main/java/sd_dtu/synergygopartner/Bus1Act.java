@@ -39,7 +39,7 @@ public class Bus1Act extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bus_1);
+        setContentView(R.layout.google_forms1);
 
         Calligrapher calligrapher = new Calligrapher(this);
         calligrapher.setFont(this,"fonts/OpenSans-Regular.ttf",true);
