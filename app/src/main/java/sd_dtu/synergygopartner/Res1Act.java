@@ -26,9 +26,8 @@ import me.anwarshahriar.calligrapher.Calligrapher;
 
 public class Res1Act extends AppCompatActivity {
 
-    EditText name,noFamilyMem,workingMem,dependMem,children,spouseEmp;
+    EditText name,noFamilyMem,workingMem,dependMem,children,spouseEmp,registration,carpetArea,politicalInflu,otherRemarks;
     String sname,snoFamilyMem,sworkingMem,sdependMem,schildren,sspouseEmp,sresidence,smaritalStatus,slocality;
-    String filestr,agentid;
     Spinner residence,maritalStatus,locality;
     ArrayAdapter<CharSequence> residenceadapter;
     ArrayAdapter<CharSequence> maritaladapter;
@@ -36,13 +35,19 @@ public class Res1Act extends AppCompatActivity {
     DatabaseReference databaseReference;
 
 
+    String sregistration,scarpetArea,spoliticalInflu,sotherRemarks,svehicle;
+    Spinner vehicle;
+    String filestr,agentid;
+    ArrayAdapter<CharSequence> vehicleadapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_res1);
+        setContentView(R.layout.google_forms);
 
         Calligrapher calligrapher = new Calligrapher(this);
-        calligrapher.setFont(this,"fonts/OpenSans-Regular.ttf",true);
+        calligrapher.setFont(this,"fonts/RobotoCondensed-Regular.ttf",true);
 
         getSupportActionBar().setTitle("Fill the Details");
 
@@ -55,14 +60,16 @@ public class Res1Act extends AppCompatActivity {
         residence =(Spinner) findViewById(R.id.ResStatusSpinner);
         maritalStatus=(Spinner) findViewById(R.id.MaritalStatusSpinner);
         locality=(Spinner) findViewById(R.id.Localityspinner);
+        registration= (EditText)findViewById(R.id.RegNoeditText);
+        carpetArea= (EditText)findViewById(R.id.CarpetAreaeditText);
+        politicalInflu= (EditText)findViewById(R.id.PoliticaleditText);
+        otherRemarks= (EditText)findViewById(R.id.OtherRemarkseditText);
+        vehicle=(Spinner) findViewById(R.id.Vehiclespinner);
 
 
         agentid = getIntent().getStringExtra("agent");
 
         databaseReference=FirebaseDatabase.getInstance().getReference();
-
-
-
 
         residenceadapter=ArrayAdapter.createFromResource(this,R.array.resstatus,R.layout.support_simple_spinner_dropdown_item);
         residenceadapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -105,7 +112,35 @@ public class Res1Act extends AppCompatActivity {
             }
         });
 
+        vehicleadapter=ArrayAdapter.createFromResource(this,R.array.vehicle,R.layout.support_simple_spinner_dropdown_item);
+        vehicleadapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        vehicle.setAdapter(vehicleadapter);
 
+        vehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                switch (i)
+                {
+                    case 0:
+                        svehicle="Two Wheeler";
+                        break;
+                    case 1:
+                        svehicle="Car";
+                        break;
+                    case 2:
+                        svehicle="other";
+
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         maritaladapter=ArrayAdapter.createFromResource(this,R.array.marital,R.layout.support_simple_spinner_dropdown_item);
         maritaladapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -200,7 +235,14 @@ public class Res1Act extends AppCompatActivity {
         schildren=children.getText().toString().trim();
         sspouseEmp=spouseEmp.getText().toString().trim();
 
+        sregistration=registration.getText().toString().trim();
+        scarpetArea=carpetArea.getText().toString().trim();
+        spoliticalInflu=politicalInflu.getText().toString().trim();
+        sotherRemarks=otherRemarks.getText().toString().trim();
 
+        if(TextUtils.isEmpty(sregistration)||TextUtils.isEmpty(scarpetArea)||TextUtils.isEmpty(spoliticalInflu)||TextUtils.isEmpty(sotherRemarks)) {
+            Toast.makeText(getApplicationContext(),"Please enter all fields..",Toast.LENGTH_LONG).show();
+        }
 
         if(isNetworkAvailable(getApplicationContext())) {
 
@@ -220,11 +262,18 @@ public class Res1Act extends AppCompatActivity {
                 databaseReference.child("Data").child("Residence").child(filestr).child("Children").setValue(schildren);
                 databaseReference.child("Data").child("Residence").child(filestr).child("Spouse Emp").setValue(sspouseEmp);
                 databaseReference.child("Data").child("Residence").child(filestr).child("Locality").setValue(slocality);
+                databaseReference.child("Data").child("Residence").child(filestr).child("Vehicle Seen").setValue(svehicle);
+                databaseReference.child("Data").child("Residence").child(filestr).child("Registeration No").setValue(sregistration);
+                databaseReference.child("Data").child("Residence").child(filestr).child("Carpet Area").setValue(scarpetArea);
+                databaseReference.child("Data").child("Residence").child(filestr).child("Political Influence").setValue(spoliticalInflu);
+                databaseReference.child("Data").child("Residence").child(filestr).child("Other Remarks").setValue(sotherRemarks);
 
 
-                Intent intent = new Intent(Res1Act.this, SerRes2Act.class);
+
+                Intent intent = new Intent(Res1Act.this, LocationPhoto.class);
                 intent.putExtra("file", filestr);
                 intent.putExtra("agent", agentid);
+                intent.putExtra("type","Residence");
                 startActivity(intent);
             }
         } else {
