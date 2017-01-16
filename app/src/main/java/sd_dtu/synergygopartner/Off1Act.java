@@ -35,10 +35,10 @@ public class Off1Act extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_off1);
+        setContentView(R.layout.google_forms_2);
 
         Calligrapher calligrapher = new Calligrapher(this);
-        calligrapher.setFont(this,"fonts/OpenSans-Regular.ttf",true);
+        calligrapher.setFont(this,"fonts/RobotoCondensed-Regular.ttf",true);
         getSupportActionBar().setTitle("Record the responses");
 
         name=(EditText)findViewById(R.id.personconteditText);

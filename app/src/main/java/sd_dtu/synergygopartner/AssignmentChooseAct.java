@@ -1,12 +1,16 @@
 package sd_dtu.synergygopartner;
 
+import android.*;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,6 +42,7 @@ public class AssignmentChooseAct extends AppCompatActivity {
     DatabaseReference mDatabasechecked;
     ArrayList<String> fi = new ArrayList<String>();
     ArrayList<CardData> list = new ArrayList<CardData>();
+    public static final int EXTERNAL_STORAGE_CODE = 101;
 
 
     @Override
@@ -51,6 +56,8 @@ public class AssignmentChooseAct extends AppCompatActivity {
         final String AgentID = getIntent().getStringExtra("Agent");
         getSupportActionBar().setTitle("Agent ID : " + AgentID);
         recyclerView = (RecyclerView)findViewById(R.id.recyc_view);
+
+
 
        // fileslv=(ListView)findViewById(R.id.agentlv);
 
@@ -103,9 +110,22 @@ public class AssignmentChooseAct extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Unable to contact the server", Toast.LENGTH_LONG).show();
                 }
             });
+            int permissionCheck = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
+
+            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},EXTERNAL_STORAGE_CODE);
+                return;
+            }
 
         } else {
+            int permissionCheck = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+
+            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},EXTERNAL_STORAGE_CODE);
+                //return;
+            }
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("No Internet Connection...")
                     .setMessage("Click Here to set Active connection")
@@ -141,6 +161,19 @@ public class AssignmentChooseAct extends AppCompatActivity {
     public boolean isNetworkAvailable(final Context context) {
         final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == EXTERNAL_STORAGE_CODE) {
+            if (permissions[0] == android.Manifest.permission.WRITE_EXTERNAL_STORAGE) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //  selectedImage = getImageUri(LocationPhoto.this,photos);
+                    Toast.makeText(getApplicationContext(),"Enabled",Toast.LENGTH_LONG).show();
+                }
+            }
+        }
     }
 
     @Override

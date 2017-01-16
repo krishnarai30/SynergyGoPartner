@@ -42,7 +42,7 @@ public class Bus1Act extends AppCompatActivity {
         setContentView(R.layout.google_forms1);
 
         Calligrapher calligrapher = new Calligrapher(this);
-        calligrapher.setFont(this,"fonts/OpenSans-Regular.ttf",true);
+        calligrapher.setFont(this,"fonts/RobotoCondensed-Regular.ttf",true);
 
         getSupportActionBar().setTitle("Fill Details");
 
