@@ -121,11 +121,11 @@ public class SerRes2Act extends AppCompatActivity {
                 progressDialog.dismiss();
 
 
-                Intent intent2 = new Intent(SerRes2Act.this, LocationPhoto.class);
-                intent2.putExtra("file", filestr);
-                intent2.putExtra("agent", agentid);
-                intent2.putExtra("type","Residence");
-                startActivity(intent2);
+             //   Intent intent2 = new Intent(SerRes2Act.this, LocationPhoto.class);
+             //   intent2.putExtra("file", filestr);
+             //   intent2.putExtra("agent", agentid);
+             //   intent2.putExtra("type","Residence");
+             //   startActivity(intent2);
             } else {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
                 alertDialogBuilder.setTitle("No Internet Connection...")

@@ -1,13 +1,18 @@
 package sd_dtu.synergygopartner;
 
+import android.*;
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,7 +43,7 @@ public class LoginAct extends AppCompatActivity {
     public String AgentIDin,PassIn;
     private FirebaseAuth mAuth;
     ArrayList<String> list = new ArrayList<String>();
-
+    public static final int EXTERNAL_STORAGE_CODE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,15 @@ public class LoginAct extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         agentId=(EditText)findViewById(R.id.AgenitIDeditText);
         pass=(EditText)findViewById(R.id.PasseditText);
+
+//        int permissionCheck = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+//
+//
+//        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},EXTERNAL_STORAGE_CODE);
+//            return;
+//        }
+            //  selectedImage = getImageUri(LocationPhoto.this,ph
 //        if (isNetworkAvailable(getApplicationContext())) {
 //
 //
@@ -63,6 +77,19 @@ public class LoginAct extends AppCompatActivity {
 //                                    "long time taken, this might happen if their is no proper connectivity for the process").show();
 
     }
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if(requestCode == EXTERNAL_STORAGE_CODE) {
+//            if (permissions[0] == Manifest.permission.WRITE_EXTERNAL_STORAGE) {
+//                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    //  selectedImage = getImageUri(LocationPhoto.this,photos);
+//                    Toast.makeText(getApplicationContext(),"Enabled",Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        }
+//    }
 
     public void onClickLogin(View view){
 

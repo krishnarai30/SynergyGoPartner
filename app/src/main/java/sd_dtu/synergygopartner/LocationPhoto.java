@@ -87,9 +87,6 @@ public class LocationPhoto extends Activity {
         lng = (TextView) findViewById(R.id.lng);
         refresh = (Button) findViewById(R.id.refresh);
 
-//        dialog = new ProgressDialog(this);
-//        dialog.setMessage("Getting Your location....");
-//        dialog.show();
 
         refresh.setOnClickListener(new View.OnClickListener() {
 
@@ -101,53 +98,29 @@ public class LocationPhoto extends Activity {
         });
 
 
-
-
-        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},EXTERNAL_STORAGE_CODE);
-        } else {
-            //  selectedImage = getImageUri(LocationPhoto.this,photos);
-                b = false;
-        }
-
-
         if (isNetworkAvailable(getApplicationContext())) {
+//            dialog = new ProgressDialog(this);
+//       dialog.setMessage("Getting Your location....");
+//        dialog.show();
 
-            dialog = new ProgressDialog(LocationPhoto.this);
-            dialog.show();
-            dialog.setMessage("Getting Coordinates");
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-            //dialog.setCancelable(true);
-//            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-//                @Override
-//                public void onCancel(DialogInterface dialog)              {
-//                    Toast.makeText(getApplicationContext(), "Taking too long", Toast.LENGTH_LONG).show();
-//                    AlertDialog.Builder alert = new AlertDialog.Builder(LocationPhoto.this);
-//                    alert.setTitle("The process was cancelled").
-//                            setMessage("The process was stopped by you due to any reason. \n The reason may be the " +
-//                                    "long time taken, this might happen if their is no proper connectivity for the process").show();
-//                }
-//            });
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 
-                    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-                    if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-
-                        if (ActivityCompat.checkSelfPermission(LocationPhoto.this, Manifest.permission.ACCESS_FINE_LOCATION) !=
-                                PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(LocationPhoto.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQ_CODE);
-                            return;
-                        }
-                        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 100, locationListener);
-                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100, locationListener);
-                        dialog.dismiss();
-                    }
-                else {
-                    dialog.dismiss();
-
+                if (ActivityCompat.checkSelfPermission(LocationPhoto.this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                        PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(LocationPhoto.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQ_CODE);
+                    return;
+                } else {
+                    dialog = new ProgressDialog(this);
+                    dialog.setMessage("Getting Your location....");
+                    dialog.show();
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 100, locationListener);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100, locationListener);}
+                dialog.dismiss();
+            }
+            else {
+                //dialog.dismiss();
                     AlertDialog.Builder builder =
                             new AlertDialog.Builder(LocationPhoto.this);
                     final String action = Settings.ACTION_LOCATION_SOURCE_SETTINGS;
@@ -207,16 +180,11 @@ public class LocationPhoto extends Activity {
         if(requestCode == LOCATION_REQ_CODE){
             if(permissions[0] == Manifest.permission.ACCESS_FINE_LOCATION)  {
                 if(grantResults[0] == PackageManager.PERMISSION_GRANTED)  {
+                    dialog.setMessage("Getting Coordinates");
+                    dialog.show();
                     //noinspection MissingPermission
                     locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,locationListener);
-                }
-            }
-        }
-        else if(requestCode == EXTERNAL_STORAGE_CODE) {
-            if(permissions[0] == Manifest.permission.WRITE_EXTERNAL_STORAGE) {
-                if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                  //  selectedImage = getImageUri(LocationPhoto.this,photos);
-                    b = false;
+                                dialog = new ProgressDialog(LocationPhoto.this);
                 }
             }
         }
@@ -241,7 +209,7 @@ public class LocationPhoto extends Activity {
                 e.printStackTrace();
             }
 
-           // dialog.show();
+            dialog.show();
             latitude = location.getLatitude();
             longitude =location.getLongitude();
             if (latitude != 0 && longitude != 0){
@@ -336,11 +304,11 @@ public class LocationPhoto extends Activity {
 
         if(requestCode == 1 && resultCode == RESULT_OK && data!=null){
 //
-//            ProgressDialog progressDialog = new ProgressDialog(LocationPhoto.this);
-//            progressDialog.setMessage("Wait while the image is uploaded....");
-//            progressDialog.setCancelable(false);
-//            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-//            progressDialog.show();
+            ProgressDialog progressDialog = new ProgressDialog(LocationPhoto.this);
+            progressDialog.setMessage("Wait while the image is uploaded....");
+            progressDialog.setCancelable(false);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progressDialog.show();
 
             Log.d("Image URI","in here");
 
@@ -361,7 +329,7 @@ public class LocationPhoto extends Activity {
                 StorageReference photoRef = storageRef.child(Type).child(fileno).child(selectedImage.getLastPathSegment());
                 photoRef.putFile(selectedImage);
 
-             //   progressDialog.dismiss();
+               progressDialog.dismiss();
 
                 Toast.makeText(this,"Image Uploaded", Toast.LENGTH_SHORT).show();
 

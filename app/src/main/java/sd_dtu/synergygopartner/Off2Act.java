@@ -183,11 +183,7 @@ public class Off2Act extends AppCompatActivity {
                 databaseReference.child("Data").child("Office").child(filestr).child("Other Remarks").setValue(sremarks);
 
 
-                Intent intent = new Intent(Off2Act.this, LocationPhoto.class);
-                intent.putExtra("file", filestr);
-                intent.putExtra("agent", agentid);
-                intent.putExtra("type","Office");
-                startActivity(intent);
+                //startActivity(intent);
             } else {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
                 alertDialogBuilder.setTitle("No Internet Connection...")

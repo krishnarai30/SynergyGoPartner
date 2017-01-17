@@ -222,8 +222,6 @@ public class Res1Act extends AppCompatActivity {
 
     }
 
-
-
     public void onClicknextsr1(View view){
 
 
