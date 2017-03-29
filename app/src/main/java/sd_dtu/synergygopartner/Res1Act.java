@@ -238,16 +238,16 @@ public class Res1Act extends AppCompatActivity {
         spoliticalInflu=politicalInflu.getText().toString().trim();
         sotherRemarks=otherRemarks.getText().toString().trim();
 
-        if(TextUtils.isEmpty(sregistration)||TextUtils.isEmpty(scarpetArea)||TextUtils.isEmpty(spoliticalInflu)||TextUtils.isEmpty(sotherRemarks)) {
-            Toast.makeText(getApplicationContext(),"Please enter all fields..",Toast.LENGTH_LONG).show();
-        }
+//        if(TextUtils.isEmpty(sregistration)||TextUtils.isEmpty(scarpetArea)||TextUtils.isEmpty(spoliticalInflu)||TextUtils.isEmpty(sotherRemarks)) {
+//            Toast.makeText(getApplicationContext(),"Please enter all fields..",Toast.LENGTH_LONG).show();
+//        }
 
         if(isNetworkAvailable(getApplicationContext())) {
 
-            if(TextUtils.isEmpty(sname)||TextUtils.isEmpty(snoFamilyMem)||TextUtils.isEmpty(sworkingMem)||TextUtils.isEmpty(sdependMem)
-                    ||TextUtils.isEmpty(schildren)||TextUtils.isEmpty(sspouseEmp)) {
-                Toast.makeText(getApplicationContext(),"Please fill all FIELDS !",Toast.LENGTH_LONG).show();
-            } else {
+//            if(TextUtils.isEmpty(sname)||TextUtils.isEmpty(snoFamilyMem)||TextUtils.isEmpty(sworkingMem)||TextUtils.isEmpty(sdependMem)
+//                    ||TextUtils.isEmpty(schildren)||TextUtils.isEmpty(sspouseEmp)) {
+//                Toast.makeText(getApplicationContext(),"Please fill all FIELDS !",Toast.LENGTH_LONG).show();
+//            } else {
 
 
                 databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -273,7 +273,7 @@ public class Res1Act extends AppCompatActivity {
                 intent.putExtra("agent", agentid);
                 intent.putExtra("type","Residence");
                 startActivity(intent);
-            }
+          //  }
         } else {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("No Internet Connection...")
