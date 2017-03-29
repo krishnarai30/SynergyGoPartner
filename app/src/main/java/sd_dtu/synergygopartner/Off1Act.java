@@ -175,10 +175,10 @@ public class Off1Act extends AppCompatActivity {
         scompanyNature=companyNature.getText().toString().trim();
         sremarks=remarks.getText().toString().trim();
 
-        if(TextUtils.isEmpty(sname)||TextUtils.isEmpty(sdesignation)||TextUtils.isEmpty(smobile)||TextUtils.isEmpty(sjoinDate)
-                ||TextUtils.isEmpty(sdesigApp)||TextUtils.isEmpty(snoYears)) {
-            Toast.makeText(getApplicationContext(),"Enter all the fields .. . ",Toast.LENGTH_LONG).show();
-        } else {
+//        if(TextUtils.isEmpty(sname)||TextUtils.isEmpty(sdesignation)||TextUtils.isEmpty(smobile)||TextUtils.isEmpty(sjoinDate)
+//                ||TextUtils.isEmpty(sdesigApp)||TextUtils.isEmpty(snoYears)) {
+//            Toast.makeText(getApplicationContext(),"Enter all the fields .. . ",Toast.LENGTH_LONG).show();
+//        } else {
 
             if (isNetworkAvailable(getApplicationContext())) {
                 databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -216,7 +216,7 @@ public class Off1Act extends AppCompatActivity {
                         .setIcon(R.drawable.error)
                         .show();
             }
-        }
+       // }
     }
 
     public boolean isNetworkAvailable(final Context context) {

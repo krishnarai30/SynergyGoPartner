@@ -131,11 +131,11 @@ public class Bus1Act extends AppCompatActivity {
         snoEmployee = noEmployee.getText().toString().trim();
 
 
-        if(TextUtils.isEmpty(sname)||TextUtils.isEmpty(sdesig)||TextUtils.isEmpty(soffTele)||TextUtils.isEmpty(sbussNature)
-                ||TextUtils.isEmpty(sYearCompany)||TextUtils.isEmpty(snoEmployee))
-        {
-            Toast.makeText(getApplicationContext(),"Fill all Fields !",Toast.LENGTH_LONG).show();
-        } else {
+//        if(TextUtils.isEmpty(sname)||TextUtils.isEmpty(sdesig)||TextUtils.isEmpty(soffTele)||TextUtils.isEmpty(sbussNature)
+//                ||TextUtils.isEmpty(sYearCompany)||TextUtils.isEmpty(snoEmployee))
+//        {
+//            Toast.makeText(getApplicationContext(),"Fill all Fields !",Toast.LENGTH_LONG).show();
+//        } else {
 
             databaseReference = FirebaseDatabase.getInstance().getReference();
             databaseReference.child("Data").child("Business").child(filestr).child("Person Contacted").setValue(sname);
@@ -153,7 +153,7 @@ public class Bus1Act extends AppCompatActivity {
             intent.putExtra("agent", agenti);
             intent.putExtra("type","Business");
             startActivity(intent);
-        }
+       // }
     }
 
     public boolean isNetworkAvailable(final Context context) {
