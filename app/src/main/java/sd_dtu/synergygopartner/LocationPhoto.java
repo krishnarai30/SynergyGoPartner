@@ -320,8 +320,8 @@ public class LocationPhoto extends Activity {
 //            File finalFile = new File(getRealPathFromURI(selectedImage));
 
 //            Uri selectedImag = data.getData();
-            //if(b == false)
-            //{
+            if(b == false)
+            {
                 Bitmap photo = (Bitmap)data.getExtras().get("data");
                 Uri selectedImage = getImageUri(LocationPhoto.this,photo);
                 FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -332,9 +332,13 @@ public class LocationPhoto extends Activity {
                progressDialog.dismiss();
 
                 Toast.makeText(this,"Image Uploaded", Toast.LENGTH_SHORT).show();
-            //} else {
-              //  Toast.makeText(getApplicationContext(),"THis is it",Toast.LENGTH_LONG).show();
-            //}
+
+                Intent intent = new Intent(LocationPhoto.this,AssignmentChooseAct.class);
+                intent.putExtra("Agent",agentid);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getApplicationContext(),"THis is it",Toast.LENGTH_LONG).show();
+            }
 
           // Log.d("Image URI",selectedImage.toString());
 

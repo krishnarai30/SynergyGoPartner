@@ -24,28 +24,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AssignmentChooseAct"
-            android:screenOrientation="portrait"
-            />
+        <activity android:name=".AssignmentChooseAct" />
         <activity android:name=".LoginAct"
-            android:screenOrientation="portrait"
             android:noHistory="true"
             />
         <activity android:name=".DetailsAct" />
         <activity android:name=".SerRes2Act" />
-        <activity android:name=".LocationPhoto"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".Res1Act"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".Off1Act"
-            android:screenOrientation="portrait"
-            />
+        <activity android:name=".LocationPhoto" />
+        <activity android:name=".Res1Act" />
+        <activity android:name=".Off1Act" />
         <activity android:name=".Off2Act" />
-        <activity android:name=".Bus1Act"
-            android:screenOrientation="portrait"
-            />
+        <activity android:name=".Bus1Act" />
     </application>
 
 </manifest>

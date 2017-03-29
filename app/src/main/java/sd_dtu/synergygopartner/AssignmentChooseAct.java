@@ -1,8 +1,6 @@
 package sd_dtu.synergygopartner;
 
 import android.*;
-import android.Manifest;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
-import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -64,7 +61,6 @@ public class AssignmentChooseAct extends AppCompatActivity {
 
        // fileslv=(ListView)findViewById(R.id.agentlv);
 
-        boolean permissionCheck = Utility.checkPermissions(this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
         if(isNetworkAvailable(getApplicationContext())) {
 
@@ -114,7 +110,22 @@ public class AssignmentChooseAct extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Unable to contact the server", Toast.LENGTH_LONG).show();
                 }
             });
+            int permissionCheck = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
+
+            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},EXTERNAL_STORAGE_CODE);
+                return;
+            }
+
+        } else {
+            int permissionCheck = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+
+            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},EXTERNAL_STORAGE_CODE);
+                //return;
+            }
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("No Internet Connection...")
                     .setMessage("Click Here to set Active connection")
@@ -153,32 +164,15 @@ public class AssignmentChooseAct extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case EXTERNAL_STORAGE_CODE :
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //if (userChoosenTask.equals("STORAGE"))
-                    //performTaskOperation();//this method what you need to perform
-                }
-                break;
-        }
-    }
-
-    public static class Utility {
-        public static boolean checkPermissions(Context context, String... permissions) {
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
-                for (String permission : permissions) {
-                    if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
-                        if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, permission)) {
-                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE},EXTERNAL_STORAGE_CODE);
-                        } else {
-                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE}, EXTERNAL_STORAGE_CODE);
-                        }
-                        return false;
-                    }
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == EXTERNAL_STORAGE_CODE) {
+            if (permissions[0] == android.Manifest.permission.WRITE_EXTERNAL_STORAGE) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //  selectedImage = getImageUri(LocationPhoto.this,photos);
+                    Toast.makeText(getApplicationContext(),"Enabled",Toast.LENGTH_LONG).show();
                 }
             }
-            return true;
         }
     }
 
